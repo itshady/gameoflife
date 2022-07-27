@@ -4,7 +4,7 @@ import Grid from '../../components/Grid.js'
 
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
-import { allDead, scenario1 } from '../fixtures/mapData'
+import { allDead, badMap, nonSquareMap, scenario1 } from '../fixtures/mapData'
 
 it('renders the right amount of cells', async () => {
   const width = scenario1[0].length
@@ -35,17 +35,25 @@ it('render without map data contains all dead cells', async () => {
 })
 
 it('renders 3 alive cells based on map data', async () => {
-  const width = 20
-  const height = 10
-  
   const {container} = render(
     <Grid 
-      width={width}
-      height={height}
       mapData={scenario1}
     />
   )
   
   const items = container.getElementsByClassName('alive')
   expect(items).toHaveLength(3)
+})
+
+it('raises error when map rows are not all the same length', async () => {
+  const {container} = render(
+    <Grid 
+      mapData={badMap}
+    />
+  )
+
+  const items = container.getElementsByClassName('error-message')
+  expect(items).toHaveLength(1)
+  const grid = container.getElementsByClassName('map-grid')
+  expect(grid).toHaveLength(0)
 })

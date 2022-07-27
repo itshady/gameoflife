@@ -1,21 +1,31 @@
 import React, { useState } from "react"
 import Row from './Row.js'
 
+const validate = (mapData) => {
+  var length = mapData[0].length
+  return mapData.every((rowData) => {
+    return rowData.length == length
+  })
+}
+
 const Grid = ({mapData}) => {
+  const [status, setStatus] = useState(validate(mapData))
+
+  if (!status) {
+    return (
+      <div className="error-message">This map data is invalid</div>
+    )
+  }
+
   var items = []
-  //console.debug(mapData)
 
   mapData.forEach((rowData,i) => {
     items.push(<Row rowData={rowData} key={`${i}`}/>)
   })
-  // for (var [i,rowData] of mapData) {
-  //   console.debug(rowData)
-  //   items.push(<Row rowData={rowData} key={`${i}`}/>)
-  // }
 
   return (
     <div>
-      <table>
+      <table className="map-grid">
         <tbody>
           {items}
         </tbody>
