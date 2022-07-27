@@ -3,7 +3,7 @@ import '../assets/Cell.css'
 
 const Cell = ({state}) => {
   return (
-    <td className={`cell ${state ? 'alive' : 'dead'}`} ></td>
+    <td className={`cell ${state ? 'alive' : 'dead'}`} data-testid="cell"></td>
   )
 }
 
