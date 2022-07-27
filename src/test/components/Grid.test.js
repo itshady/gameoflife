@@ -20,3 +20,19 @@ it('renders the right amount of cells', async () => {
   const items = await screen.findAllByTestId('cell')
   expect(items).toHaveLength(width*height)
 })
+
+it('renders 3 alive cells based on map data', async () => {
+  const width = 20
+  const height = 10
+  
+  const {container} = render(
+    <Grid 
+      width={width}
+      height={height}
+      mapData={scenario1}
+    />
+  )
+  
+  const items = container.getElementsByClassName('alive')
+  expect(items).toHaveLength(3)
+})
