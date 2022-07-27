@@ -4,6 +4,7 @@ import Grid from '../../components/Grid.js'
 
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
+import { scenario1 } from '../fixtures/mapData'
 
 it('renders the right amount of cells', async () => {
   const width = 20
