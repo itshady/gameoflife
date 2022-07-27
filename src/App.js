@@ -5,9 +5,7 @@ function App() {
   return (
     <div className="App">
       <Grid 
-        width={20}
-        height={10}
-        mapData={true}
+        mapData={[[0,0],[0,1]]}
       />
     </div>
   );
