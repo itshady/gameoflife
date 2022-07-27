@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Row from './Row.js'
 
 const validate = (mapData) => {
@@ -10,6 +10,10 @@ const validate = (mapData) => {
 
 const Grid = ({mapData}) => {
   const [status, setStatus] = useState(validate(mapData))
+  
+  useEffect(() => {
+    setStatus(validate(mapData))
+  },[mapData]);
 
   if (!status) {
     return (
