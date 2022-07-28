@@ -15,44 +15,62 @@ it('renders the right amount of cells', async () => {
     />,
   )
 
+  scenario1[1][1] = 1
   const items = await screen.findAllByTestId('cell')
   expect(items).toHaveLength(width * height)
 })
 
-it('render without map data contains all dead cells', async () => {
-  const width = scenario1[0].length
-  const height = scenario1.length
+// it('render without map data contains all dead cells', async () => {
+//   const width = scenario1[0].length
+//   const height = scenario1.length
 
-  const { container } = render(
-    <Grid
-      mapData={allDead}
-    />,
-  )
+//   const { container } = render(
+//     <Grid
+//       mapData={allDead}
+//     />,
+//   )
 
-  const items = container.getElementsByClassName('dead')
-  expect(items).toHaveLength(width * height)
-})
+//   const items = container.getElementsByClassName('dead')
+//   expect(items).toHaveLength(width * height)
+// })
 
-it('renders 3 alive cells based on map data', async () => {
-  const { container } = render(
-    <Grid
-      mapData={scenario1}
-    />,
-  )
+// it('renders 3 alive cells based on map data', async () => {
+//   const { container } = render(
+//     <Grid
+//       mapData={scenario1}
+//     />,
+//   )
 
-  const items = container.getElementsByClassName('alive')
-  expect(items).toHaveLength(3)
-})
+//   const items = container.getElementsByClassName('alive')
+//   expect(items).toHaveLength(3)
+// })
 
-it('raises error when map rows are not all the same length', async () => {
-  const { container } = render(
-    <Grid
-      mapData={badMap}
-    />,
-  )
+// it('raises error when map rows are not all the same length', async () => {
+//   const { container } = render(
+//     <Grid
+//       mapData={badMap}
+//     />,
+//   )
 
-  const items = container.getElementsByClassName('error-message')
-  expect(items).toHaveLength(1)
-  const grid = container.getElementsByClassName('map-grid')
-  expect(grid).toHaveLength(0)
-})
+//   const items = container.getElementsByClassName('error-message')
+//   expect(items).toHaveLength(1)
+//   const grid = container.getElementsByClassName('map-grid')
+//   expect(grid).toHaveLength(0)
+// })
+
+// it('grid rerenders new mapdata', async () => {
+//   const { container } = render(
+//     <Grid
+//       mapData={scenario1}
+//     />,
+//   )
+
+//   let items = container.getElementsByClassName('alive')
+//   expect(items).toHaveLength(3)
+
+//   scenario1[4][4] = 1
+//   scenario1[5][5] = 1
+
+//   items = container.getElementsByClassName('alive')
+//   expect(items).toHaveLength(5)
+// })

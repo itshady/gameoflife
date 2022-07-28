@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from 'react'
 import Row from './Row.js'
 
+export const updateMap = (newMap) => {
+  
+}
+
 const validate = (mapData) => {
   const { length } = mapData[0]
   return mapData.every((rowData) => rowData.length === length)
 }
 
 function Grid({ mapData }) {
-  const [status, setStatus] = useState(validate(mapData))
+  const [mapState, setMapState] = useState(mapData)
+  const [status, setStatus] = useState(validate(mapState))
 
   useEffect(() => {
-    setStatus(validate(mapData))
-  }, [mapData])
+    console.debug('use effect ****************')
+    setStatus(validate(mapState))
+  }, [mapState])
 
+  console.debug('init ****************')
   if (!status) {
     return (
       <div className="error-message">This map data is invalid</div>
@@ -21,7 +28,7 @@ function Grid({ mapData }) {
 
   const items = []
 
-  mapData.forEach((rowData, i) => {
+  mapState.forEach((rowData, i) => {
     items.push(<Row rowData={rowData} key={`${i}`} />)
   })
 
