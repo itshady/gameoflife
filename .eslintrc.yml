@@ -1,6 +1,7 @@
 env:
   browser: true
   es2021: true
+  jest: true
 extends:
   - plugin:react/recommended
   - airbnb
@@ -15,4 +16,7 @@ rules: {
   "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
   "import/extensions": "off",
   "semi": ["error", "never"],
+  "react/function-component-definition": off,
+  "react/prop-types": off,
+  "react/no-array-index-key": off
 }

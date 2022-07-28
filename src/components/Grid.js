@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from 'react'
 import Row from './Row.js'
 
 const validate = (mapData) => {
-  var length = mapData[0].length
-  return mapData.every((rowData) => {
-    return rowData.length == length
-  })
+  const { length } = mapData[0]
+  return mapData.every((rowData) => rowData.length === length)
 }
 
-const Grid = ({mapData}) => {
+function Grid({ mapData }) {
   const [status, setStatus] = useState(validate(mapData))
-  
+
   useEffect(() => {
     setStatus(validate(mapData))
-  },[mapData]);
+  }, [mapData])
 
   if (!status) {
     return (
@@ -21,10 +19,10 @@ const Grid = ({mapData}) => {
     )
   }
 
-  var items = []
+  const items = []
 
-  mapData.forEach((rowData,i) => {
-    items.push(<Row rowData={rowData} key={`${i}`}/>)
+  mapData.forEach((rowData, i) => {
+    items.push(<Row rowData={rowData} key={`${i}`} />)
   })
 
   return (
@@ -38,4 +36,4 @@ const Grid = ({mapData}) => {
   )
 }
 
-export default Grid;
+export default Grid

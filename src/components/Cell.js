@@ -1,10 +1,10 @@
-import React from "react"
+import React from 'react'
 import '../assets/Cell.css'
 
-const Cell = ({state}) => {
+function Cell({ state }) {
   return (
-    <td className={`cell ${state ? 'alive' : 'dead'}`} data-testid="cell"></td>
+    <td className={`cell ${state ? 'alive' : 'dead'}`} data-testid="cell" />
   )
 }
 
-export default Cell;
+export default Cell
