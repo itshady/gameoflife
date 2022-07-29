@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { } from 'react'
 import Row from './Row.js'
 
 const validate = (mapData) => {
@@ -6,10 +6,8 @@ const validate = (mapData) => {
   return mapData.every((rowData) => rowData.length === length)
 }
 
-// eslint-disable-next-line no-unused-vars
-function Grid({ mapData, setMap }) {
+function Grid({ mapData }) {
   const status = validate(mapData)
-
   if (!status) {
     return (
       <div className="error-message">This map data is invalid</div>
