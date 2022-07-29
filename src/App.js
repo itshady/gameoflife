@@ -12,9 +12,7 @@ function App() {
   const initialState = Array.from(Array(5), () => Array(20).fill(0))
   const [map, setMap] = useState(initialState)
 
-  setTimeout(() => {
-    gameLoop(map, setMap)
-  }, 1000)
+  setTimeout(gameLoop(map, setMap), 1000)
 
   return (
     <div className="App">
