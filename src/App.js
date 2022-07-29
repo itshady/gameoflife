@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './App.css'
-import { scenario1 } from './mapScenarios/mapData.js'
+import { scenario1 } from './game/mapScenarios/mapData.js'
 import Grid from './components/Grid.js'
 
 function gameLoop(map, setMap) {
