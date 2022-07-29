@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './App.css'
+import { scenario1 } from './mapScenarios/mapData.js'
 import Grid from './components/Grid.js'
 
 function gameLoop(map, setMap) {
@@ -9,7 +10,7 @@ function gameLoop(map, setMap) {
 }
 
 function App() {
-  const initialState = Array.from(Array(5), () => Array(20).fill(0))
+  const initialState = scenario1
   const [map, setMap] = useState(initialState)
 
   setTimeout(() => gameLoop(map, setMap), 1000)
