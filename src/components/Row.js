@@ -1,18 +1,18 @@
-import React from "react"
+import React from 'react'
 import Cell from './Cell.js'
 
-const Row = ({width}) => {
-  var items = []
+const Row = ({ rowData }) => {
+  const items = []
 
-  for (var i=0; i < width; i++) {
-    items.push(<Cell state={true} key={`${i}`} />)
-  }
+  rowData.forEach((cellState, i) => {
+    items.push(<Cell state={cellState} key={`${i}`} />)
+  })
 
-  return(
+  return (
     <tr>
       {items}
     </tr>
   )
 }
 
-export default Row;
+export default Row

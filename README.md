@@ -2,6 +2,11 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### `eslint src --fix`
+
+Linter installed in the project following AirBnB lint pattern.\
+Omit the --fix if you just want to see the linting errors.
+
 ## Available Scripts
 
 In the project directory, you can run:
