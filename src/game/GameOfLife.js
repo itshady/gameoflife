@@ -1,3 +1,5 @@
+import Rules from './rules/Rules'
+
 /* eslint-disable no-underscore-dangle */
 class GameOfLife {
   constructor(width, height) {
@@ -13,7 +15,11 @@ class GameOfLife {
   }
 
   nextGeneration() {
-    this.countNeighbours(1, 1)
+    for (let i = 0; i < this.mapData.length; i += 1) {
+      for (let j = 0; j < this.mapData[0].length; j += 1) {
+        this._mapData[i][j] = Rules.for(this.countNeighbours(i, j), this.mapData[i][j])
+      }
+    }
   }
 
   countNeighbours(x, y) {

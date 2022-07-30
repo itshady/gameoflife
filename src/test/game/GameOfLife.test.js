@@ -58,15 +58,3 @@ it('given the bottom right corner is the only live cell, should have 0 neighbour
 
   expect(game.countNeighbours(row, col)).toEqual(0)
 })
-
-it('gives a live cell with no surrounding live cells, expect dead cell', () => {
-  const expectedWidth = 5
-  const expectedHeight = 5
-  const game = new GameOfLife(expectedWidth, expectedHeight)
-  const map = game.mapData
-  map[2][2] = 1
-  game.nextGeneration()
-
-  const actualValue = game.mapData[2][2]
-  expect(actualValue).toEqual(0)
-})
