@@ -14,7 +14,6 @@ class GameOfLife {
 
   nextGeneration() {
     this.countNeighbours(1, 1)
-    return this._sum
   }
 
   countNeighbours(x, y) {
@@ -24,7 +23,15 @@ class GameOfLife {
       { x: -1, y: 1 }, { x: 0, y: 1 }, { x: 1, y: 1 },
     ]
 
-    return deltas.reduce((sum, delta) => sum + this._mapData[x + delta.x][y + delta.y], 0)
+    const inRange = (rowIndex, colIndex) => rowIndex >= 0 && colIndex >= 0
+      && rowIndex < this._mapData.length && colIndex < this._mapData[0].length
+
+    return deltas.reduce((sum, delta) => {
+      const rowIndex = x + delta.x
+      const colIndex = y + delta.y
+
+      return inRange(rowIndex, colIndex) ? sum + this._mapData[x + delta.x][y + delta.y] : sum
+    }, 0)
   }
 }
 
