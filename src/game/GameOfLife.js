@@ -3,7 +3,9 @@ import Rules from './rules/Rules'
 /* eslint-disable no-underscore-dangle */
 class GameOfLife {
   constructor(width, height) {
-    this.mapData = Array.from(Array(height), () => Array(width).fill(0))
+    this.height = height
+    this.width = width
+    this.mapData = Array.from(Array(this.height), () => Array(this.width).fill(0))
   }
 
   get mapData() {
@@ -15,11 +17,13 @@ class GameOfLife {
   }
 
   nextGeneration() {
-    for (let i = 0; i < this.mapData.length; i += 1) {
-      for (let j = 0; j < this.mapData[0].length; j += 1) {
-        this._mapData[i][j] = Rules.for(this.countNeighbours(i, j), this.mapData[i][j])
+    const tempMap = Array.from(Array(this.height), () => Array(this.width).fill(0))
+    for (let i = 0; i < this.height; i += 1) {
+      for (let j = 0; j < this.width; j += 1) {
+        tempMap[i][j] = Rules.for(this.countNeighbours(i, j), this.mapData[i][j])
       }
     }
+    this._mapData = tempMap
   }
 
   countNeighbours(x, y) {
@@ -30,7 +34,7 @@ class GameOfLife {
     ]
 
     const inRange = (rowIndex, colIndex) => rowIndex >= 0 && colIndex >= 0
-      && rowIndex < this._mapData.length && colIndex < this._mapData[0].length
+      && rowIndex < this.height && colIndex < this.width
 
     return deltas.reduce((sum, delta) => {
       const rowIndex = x + delta.x
