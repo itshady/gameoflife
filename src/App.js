@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
 import Grid from './components/Grid.js'
 import GameOfLife from './game/GameOfLife'
@@ -15,7 +15,12 @@ function App() {
   mapPointer[3][3] = mapPointer[2][3] = mapPointer[3][2] = mapPointer[2][1] = mapPointer[1][3] = mapPointer[0][0] = 1
   const [map, setMap] = useState(mapPointer)
 
-  setTimeout(() => gameLoop(map, setMap, game), 1000)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      gameLoop(setMap, game)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div className="App">

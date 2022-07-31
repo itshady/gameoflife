@@ -23,7 +23,7 @@ class GameOfLife {
         tempMap[i][j] = Rules.for(this.countNeighbours(i, j), this.mapData[i][j])
       }
     }
-    this._mapData = tempMap
+    this.mapData = tempMap
   }
 
   countNeighbours(x, y) {
