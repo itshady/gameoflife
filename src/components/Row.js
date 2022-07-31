@@ -1,5 +1,5 @@
 import React from 'react'
-import Cell from './Cell.js'
+import Cell from './Cell'
 
 const Row = ({ rowData }) => {
   const items = []

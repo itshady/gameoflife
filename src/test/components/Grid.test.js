@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
-import Grid from '../../components/Grid.js'
+import Grid from '../../components/Grid'
 
 import '@testing-library/jest-dom/extend-expect'
 import { allDead, badMap, scenario1 } from '../fixtures/mapData'

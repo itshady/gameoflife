@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom/extend-expect'
-import GameOfLife from '../../../game/GameOfLife.js'
+import GameOfLife from '../../../game/GameOfLife'
 
 it('gives a live cell with no surrounding live cells, expect dead cell', () => {
   const startRow = 2
