@@ -9,9 +9,10 @@ import Button from 'react-bootstrap/Button'
 import Grid from './components/Grid'
 import GameOfLife from './game/GameOfLife'
 
-function gameLoop(setMap, game) {
+function gameLoop(setMap, game, setGenerationCount) {
   game.nextGeneration()
   setMap(game.mapData)
+  setGenerationCount((generation) => generation + 1)
 }
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
 
   const [map, setMap] = useState(mapPointer)
   const [intervalId, setIntervalId] = useState(0)
+  const [generationCount, setGenerationCount] = useState(0)
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -40,13 +42,13 @@ function App() {
     }
 
     const newIntervalId = setInterval(() => {
-      gameLoop(setMap, game)
+      gameLoop(setMap, game, setGenerationCount)
     }, 1000)
     setIntervalId(newIntervalId)
   }
 
   const handleNext = () => {
-    gameLoop(setMap, game)
+    gameLoop(setMap, game, setGenerationCount)
   }
 
   return (
@@ -57,6 +59,7 @@ function App() {
       <div className="app d-flex flex-row justify-content-between button-container">
         <Button onClick={handleLoop}>{intervalId ? 'Stop' : 'Start'}</Button>
         <Button onClick={handleNext} disabled={intervalId}>Next</Button>
+        <div>{generationCount}</div>
       </div>
     </div>
   )
