@@ -1,15 +1,17 @@
 import React from 'react'
-import Cell from './Cell'
+import Cell from './Cell.js'
 
-const Row = ({ rowData }) => {
+const Row = ({
+  rowData, setMap, map, rowKey,
+}) => {
   const items = []
 
   rowData.forEach((cellState, i) => {
-    items.push(<Cell state={cellState} key={`${i}`} />)
+    items.push(<Cell state={cellState} setMap={setMap} map={map} key={`${i}`} cellKey={i} />)
   })
 
   return (
-    <tr>
+    <tr data-key={rowKey}>
       {items}
     </tr>
   )

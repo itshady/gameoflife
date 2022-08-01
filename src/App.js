@@ -16,7 +16,7 @@ function gameLoop(setMap, game, setGenerationCount) {
 }
 
 function App() {
-  const [game] = useState(new GameOfLife(40, 40))
+  const [game] = useState(new GameOfLife(11, 11))
   const mapPointer = game.mapData
   useEffect(() => {
     // eslint-disable-next-line no-multi-assign, max-len
@@ -55,6 +55,7 @@ function App() {
     <div className="app d-flex flex-column align-items-center">
       <Grid
         mapData={map}
+        setMap={setMap}
       />
       <div className="app d-flex flex-row justify-content-between button-container">
         <Button onClick={handleLoop}>{intervalId ? 'Stop' : 'Start'}</Button>
