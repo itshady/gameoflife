@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 // Bootstrap Components
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import { IconName } from 'react-icons/bs'
+import { MdNextPlan, MdOutlineSpeed } from 'react-icons/md'
 
 // This Projects Components
 import Grid from './components/Grid'
@@ -55,6 +55,10 @@ function App() {
     gameLoop(setMap, game, setGenerationCount)
   }
 
+  const handleInterval = (e) => {
+    setIntervalTime(e.target.value)
+  }
+
   return (
     <div className="app d-flex flex-column align-items-center">
       <Grid
@@ -65,8 +69,9 @@ function App() {
         <Button onClick={handleLoop} key="button-start">{intervalId ? 'Stop' : 'Start'}</Button>
         <Button onClick={handleNext} disabled={intervalId} key="button-next">Next</Button>
         <div>{generationCount}</div>
-        <Form.Label>Range</Form.Label>
-        <Form.Range />
+        <Form.Label><MdNextPlan /></Form.Label>
+        <Form.Label><MdOutlineSpeed /></Form.Label>
+        <Form.Range value={intervalTime} onChange={handleInterval} min={0} max={2000} />
       </div>
     </div>
   )
