@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 // Bootstrap Components
 import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import { IconName } from 'react-icons/bs'
 
 // This Projects Components
 import Grid from './components/Grid'
@@ -26,6 +28,8 @@ function App() {
   const [map, setMap] = useState(mapPointer)
   const [intervalId, setIntervalId] = useState(0)
   const [generationCount, setGenerationCount] = useState(0)
+  // eslint-disable-next-line no-unused-vars
+  const [intervalTime, setIntervalTime] = useState(1000)
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -43,7 +47,7 @@ function App() {
 
     const newIntervalId = setInterval(() => {
       gameLoop(setMap, game, setGenerationCount)
-    }, 1000)
+    }, intervalTime)
     setIntervalId(newIntervalId)
   }
 
@@ -61,6 +65,8 @@ function App() {
         <Button onClick={handleLoop} key="button-start">{intervalId ? 'Stop' : 'Start'}</Button>
         <Button onClick={handleNext} disabled={intervalId} key="button-next">Next</Button>
         <div>{generationCount}</div>
+        <Form.Label>Range</Form.Label>
+        <Form.Range />
       </div>
     </div>
   )
