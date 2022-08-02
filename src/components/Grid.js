@@ -19,7 +19,7 @@ function Grid({ mapData, setMap }) {
   const items = []
 
   mapData.forEach((rowData, i) => {
-    items.push(<Row rowData={rowData} setMap={setMap} map={mapData} key={`${i}`} rowKey={i} />)
+    items.push(<Row rowData={rowData} setMap={setMap} map={mapData} key={i} rowKey={i} />)
   })
 
   return (

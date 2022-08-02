@@ -1,7 +1,6 @@
 import React from 'react'
 import '../assets/Cell.css'
 
-// eslint-disable-next-line no-unused-vars
 function Cell({
   state, setMap, map, cellKey,
 }) {

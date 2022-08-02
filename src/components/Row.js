@@ -7,7 +7,7 @@ const Row = ({
   const items = []
 
   rowData.forEach((cellState, i) => {
-    items.push(<Cell state={cellState} setMap={setMap} map={map} key={`${i}`} cellKey={i} />)
+    items.push(<Cell state={cellState} setMap={setMap} map={map} key={i} cellKey={i} />)
   })
 
   return (

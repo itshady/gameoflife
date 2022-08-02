@@ -58,8 +58,8 @@ function App() {
         setMap={setMap}
       />
       <div className="app d-flex flex-row justify-content-between button-container">
-        <Button onClick={handleLoop}>{intervalId ? 'Stop' : 'Start'}</Button>
-        <Button onClick={handleNext} disabled={intervalId}>Next</Button>
+        <Button onClick={handleLoop} key="button-start">{intervalId ? 'Stop' : 'Start'}</Button>
+        <Button onClick={handleNext} disabled={intervalId} key="button-next">Next</Button>
         <div>{generationCount}</div>
       </div>
     </div>
