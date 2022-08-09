@@ -4,19 +4,19 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 // Bootstrap Components
 import Button from 'react-bootstrap/Button'
-import Container from 'react-bootstrap/Container'
 
 // This Projects Components
 import Grid from './components/Grid'
 import GameOfLife from './game/GameOfLife'
 
-function gameLoop(setMap, game) {
+function gameLoop(setMap, game, setGenerationCount) {
   game.nextGeneration()
   setMap(game.mapData)
+  setGenerationCount((generation) => generation + 1)
 }
 
 function App() {
-  const [game] = useState(new GameOfLife(11, 11))
+  const [game] = useState(new GameOfLife(40, 40))
   const mapPointer = game.mapData
   useEffect(() => {
     // eslint-disable-next-line no-multi-assign, max-len
@@ -25,6 +25,7 @@ function App() {
 
   const [map, setMap] = useState(mapPointer)
   const [intervalId, setIntervalId] = useState(0)
+  const [generationCount, setGenerationCount] = useState(0)
 
   // useEffect(() => {
   //   const interval = setInterval(() => {
@@ -33,7 +34,7 @@ function App() {
   //   return () => clearInterval(interval)
   // }, [])
 
-  const handleClick = () => {
+  const handleLoop = () => {
     if (intervalId) {
       clearInterval(intervalId)
       setIntervalId(0)
@@ -41,18 +42,26 @@ function App() {
     }
 
     const newIntervalId = setInterval(() => {
-      gameLoop(setMap, game)
+      gameLoop(setMap, game, setGenerationCount)
     }, 1000)
     setIntervalId(newIntervalId)
   }
 
+  const handleNext = () => {
+    gameLoop(setMap, game, setGenerationCount)
+  }
+
   return (
-    <Container className="app d-flex flex-column align-items-center">
+    <div className="app d-flex flex-column align-items-center">
       <Grid
         mapData={map}
       />
-      <Button onClick={handleClick}>{intervalId ? 'Stop' : 'Start'}</Button>
-    </Container>
+      <div className="app d-flex flex-row justify-content-between button-container">
+        <Button onClick={handleLoop}>{intervalId ? 'Stop' : 'Start'}</Button>
+        <Button onClick={handleNext} disabled={intervalId}>Next</Button>
+        <div>{generationCount}</div>
+      </div>
+    </div>
   )
 }
 
