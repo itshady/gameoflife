@@ -1,19 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './App.css'
-import { scenario1 } from './game/mapScenarios/mapData.js'
-import Grid from './components/Grid.js'
+import Grid from './components/Grid'
+import GameOfLife from './game/GameOfLife'
 
-function gameLoop(map, setMap) {
-  const newMap = JSON.parse(JSON.stringify(map))
-  newMap[0][0] = map[0][0] === 0 ? 1 : 0
-  setMap(newMap)
+function gameLoop(setMap, game) {
+  game.nextGeneration()
+  setMap(game.mapData)
 }
 
 function App() {
-  const initialState = scenario1
-  const [map, setMap] = useState(initialState)
+  const game = new GameOfLife(11, 11)
+  const mapPointer = game.mapData
+  // eslint-disable-next-line no-multi-assign, max-len
+  mapPointer[3][3] = mapPointer[2][3] = mapPointer[3][2] = mapPointer[2][1] = mapPointer[1][3] = mapPointer[0][0] = 1
+  const [map, setMap] = useState(mapPointer)
 
-  setTimeout(() => gameLoop(map, setMap), 1000)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      gameLoop(setMap, game)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <div className="App">

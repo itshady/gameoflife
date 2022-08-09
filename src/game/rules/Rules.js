@@ -16,7 +16,7 @@ class Rules {
     if (cell === 1 && neighbourCount < 2) newData = UnderPopulation.newCellData()
     else if (cell === 1 && neighbourCount < 4) newData = Survive.newCellData()
     else if (cell === 1) newData = OverPopulation.newCellData()
-    else if (cell === 0 && neighbourCount === 3) Reproduction.newCellData()
+    else if (cell === 0 && neighbourCount === 3) newData = Reproduction.newCellData()
     return newData
   }
 }
