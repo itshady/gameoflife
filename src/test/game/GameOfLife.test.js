@@ -14,15 +14,47 @@ it('upon creation, initial state should match size and all dead', () => {
   expect(twoDsum).toEqual(0)
 })
 
-it('gives a live cell with no surrounding live cells, expect dead cell', () => {
-  const expectedWidth = 5
-  const expectedHeight = 5
-  const game = new GameOfLife(expectedWidth, expectedHeight)
+it('a live cell with no surrounding live cells should have 0 neighbours', () => {
+  const row = 2
+  const col = 2
+  const game = new GameOfLife(5, 5)
   const map = game.mapData
-  map[3][3] = 1
-  expect(map[3][3]).toEqual(1)
-  game.NextGeneration()
+  map[row][col] = 1
+  expect(game.mapData[row][col]).toEqual(1)
 
-  const actualValue = game.map[3][3]
-  expect(actualValue).toEqual(0)
+  expect(game.countNeighbours(row, col)).toEqual(0)
+})
+
+it('a middle cell with all surrounding live cells, should have 8 neighbours', () => {
+  const game = new GameOfLife(3, 3)
+  const map = game.mapData
+  for (let i = 0; i < map.length; i += 1) {
+    for (let j = 0; j < map[0].length; j += 1) {
+      map[i][j] = 1
+    }
+  }
+
+  expect(game.countNeighbours(1, 1)).toEqual(8)
+})
+
+it('given the top left corner is the only live cell, should have 0 neighbours', () => {
+  const row = 0
+  const col = 0
+  const game = new GameOfLife(5, 5)
+  const map = game.mapData
+  map[row][col] = 1
+  expect(game.mapData[row][col]).toEqual(1)
+
+  expect(game.countNeighbours(row, col)).toEqual(0)
+})
+
+it('given the bottom right corner is the only live cell, should have 0 neighbours', () => {
+  const row = 3
+  const col = 4
+  const game = new GameOfLife(5, 4)
+  const map = game.mapData
+  map[row][col] = 1
+  expect(game.mapData[row][col]).toEqual(1)
+
+  expect(game.countNeighbours(row, col)).toEqual(0)
 })
