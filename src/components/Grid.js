@@ -1,4 +1,6 @@
 import React, { } from 'react'
+import '../assets/Grid.css'
+
 import Row from './Row'
 
 const validate = (mapData) => {
