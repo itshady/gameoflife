@@ -3,7 +3,6 @@ import Survive from './Survive'
 import OverPopulation from './OverPopulation'
 import Reproduction from './Reproduction'
 
-/* eslint-disable max-len */
 /* eslint-disable no-underscore-dangle */
 class Rules {
   // Any live cell with fewer than two live neighbours dies, as if by underpopulation.

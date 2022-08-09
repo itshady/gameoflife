@@ -8,7 +8,7 @@ const validate = (mapData) => {
   return mapData.every((rowData) => rowData.length === length)
 }
 
-function Grid({ mapData }) {
+function Grid({ mapData, setMap }) {
   const status = validate(mapData)
   if (!status) {
     return (
@@ -19,7 +19,7 @@ function Grid({ mapData }) {
   const items = []
 
   mapData.forEach((rowData, i) => {
-    items.push(<Row rowData={rowData} key={`${i}`} />)
+    items.push(<Row rowData={rowData} setMap={setMap} map={mapData} key={i} rowKey={i} />)
   })
 
   return (
