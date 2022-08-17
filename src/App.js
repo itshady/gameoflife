@@ -1,3 +1,4 @@
+/* eslint-disable no-use-before-define */
 import React, { useEffect, useState } from 'react'
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -15,19 +16,17 @@ import GameControl from './game/GameControl'
 const MAXINTERVAL = 5000
 
 function App() {
-  const [game] = useState(new GameControl(11, 11))
+  const onGameLoop = () => {
+    setMap(game.mapData)
+    setGenerationCount(game.generationCount)
+  }
+  const [game] = useState(new GameControl(11, 11, onGameLoop))
 
   const [map, setMap] = useState(game.mapData)
   const [intervalId, setIntervalId] = useState(0)
   const [generationCount, setGenerationCount] = useState(0)
   // eslint-disable-next-line no-unused-vars
   const [intervalTime, setIntervalTime] = useState(1000)
-
-  const gameLoop = () => {
-    game.nextGeneration()
-    setMap(game.mapData)
-    setGenerationCount((generation) => generation + 1)
-  }
 
   const updateMap = (newMap) => {
     setMap(newMap)
@@ -49,13 +48,13 @@ function App() {
     }
 
     const newIntervalId = setInterval(() => {
-      gameLoop(setMap, game, setGenerationCount)
+      game.gameLoop()
     }, intervalTime)
     setIntervalId(newIntervalId)
   }
 
   const handleNext = () => {
-    gameLoop(setMap, game, setGenerationCount)
+    game.gameLoop()
   }
 
   const handleInterval = (e) => {
@@ -63,7 +62,7 @@ function App() {
     if (intervalId) {
       clearInterval(intervalId)
       const newIntervalId = setInterval(() => {
-        gameLoop(setMap, game, setGenerationCount)
+        game.gameLoop()
       }, intervalTime)
       setIntervalId(newIntervalId)
     }
