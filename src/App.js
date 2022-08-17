@@ -9,12 +9,13 @@ import { MdNextPlan, MdOutlineSpeed } from 'react-icons/md'
 
 // This Projects Components
 import Grid from './components/Grid'
-import GameOfLife from './game/GameOfLife'
+// eslint-disable-next-line import/no-named-as-default
+import GameControl from './game/GameControl'
 
 const MAXINTERVAL = 5000
 
 function App() {
-  const [game] = useState(new GameOfLife(11, 11))
+  const [game] = useState(new GameControl(11, 11))
 
   const [map, setMap] = useState(game.mapData)
   const [intervalId, setIntervalId] = useState(0)
