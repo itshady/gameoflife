@@ -20,10 +20,16 @@ function App() {
     setMap(game.mapData)
     setGenerationCount(game.generationCount)
   }
-  const [game] = useState(new GameControl(11, 11, onGameLoop))
+
+  const onGameStateChange = () => {
+    setGameActive(game.isActive)
+  }
+
+  const [game] = useState(new GameControl(11, 11, onGameStateChange, onGameStateChange, onGameLoop))
 
   const [map, setMap] = useState(game.mapData)
-  const [intervalId, setIntervalId] = useState(0)
+  // const [intervalId, setIntervalId] = useState(0)
+  const [gameActive, setGameActive] = useState(game.isActive)
   const [generationCount, setGenerationCount] = useState(0)
   // eslint-disable-next-line no-unused-vars
   const [intervalTime, setIntervalTime] = useState(1000)
@@ -40,17 +46,12 @@ function App() {
     updateMap(mapPointer)
   }, [])
 
-  const handleLoop = () => {
-    if (intervalId) {
-      clearInterval(intervalId)
-      setIntervalId(0)
-      return
+  const toggleGameState = () => {
+    if (gameActive) {
+      game.stop()
+    } else {
+      game.start(intervalTime)
     }
-
-    const newIntervalId = setInterval(() => {
-      game.gameLoop()
-    }, intervalTime)
-    setIntervalId(newIntervalId)
   }
 
   const handleNext = () => {
@@ -59,13 +60,8 @@ function App() {
 
   const handleInterval = (e) => {
     setIntervalTime(MAXINTERVAL - e.target.value)
-    if (intervalId) {
-      clearInterval(intervalId)
-      const newIntervalId = setInterval(() => {
-        game.gameLoop()
-      }, intervalTime)
-      setIntervalId(newIntervalId)
-    }
+    game.stop()
+    game.start(intervalTime)
   }
 
   return (
@@ -75,8 +71,8 @@ function App() {
         setMap={updateMap}
       />
       <div className="app d-flex flex-row justify-content-between button-container">
-        <Button onClick={handleLoop} key="button-start">{intervalId ? 'Stop' : 'Start'}</Button>
-        <Button onClick={handleNext} disabled={intervalId} key="button-next">Next</Button>
+        <Button onClick={toggleGameState} key="button-start">{gameActive ? 'Stop' : 'Start'}</Button>
+        <Button onClick={handleNext} disabled={gameActive} key="button-next">Next</Button>
         <div>{generationCount}</div>
         <Form.Label><MdNextPlan /></Form.Label>
         <Form.Label><MdOutlineSpeed /></Form.Label>
