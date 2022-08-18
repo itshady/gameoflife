@@ -16,6 +16,8 @@ import GameControl from './game/GameControl'
 const MAXINTERVAL = 5000
 
 function App() {
+  // eslint-disable-next-line no-console
+  console.log('x')
   const onGameLoop = () => {
     setMap(game.mapData)
     setGenerationCount(game.generationCount)
@@ -25,13 +27,11 @@ function App() {
     setGameActive(game.isActive)
   }
 
-  const [game] = useState(new GameControl(11, 11, onGameStateChange, onGameStateChange, onGameLoop))
-
+  const gameControl = InitializeGameControl()
+  const [game] = useState(gameControl)
   const [map, setMap] = useState(game.mapData)
-  // const [intervalId, setIntervalId] = useState(0)
   const [gameActive, setGameActive] = useState(game.isActive)
   const [generationCount, setGenerationCount] = useState(0)
-  // eslint-disable-next-line no-unused-vars
   const [intervalTime, setIntervalTime] = useState(1000)
 
   const updateMap = (newMap) => {
@@ -40,10 +40,8 @@ function App() {
   }
 
   useEffect(() => {
-    const mapPointer = JSON.parse(JSON.stringify(game.mapData))
-    // eslint-disable-next-line no-multi-assign
-    mapPointer[3][3] = mapPointer[2][3] = mapPointer[3][2] = mapPointer[2][1] = mapPointer[1][3] = mapPointer[0][0] = 1
-    updateMap(mapPointer)
+    const nextMapData = JSON.parse(JSON.stringify(game.mapData))
+    updateMap(nextMapData)
   }, [])
 
   const toggleGameState = () => {
@@ -80,6 +78,20 @@ function App() {
       </div>
     </div>
   )
+
+  function InitializeGameControl() {
+    const gameInit = new GameControl(11, 11, onGameStateChange, onGameStateChange, onGameLoop)
+    SetInitialGameMap(gameInit)
+    return gameInit
+  }
+
+  function SetInitialGameMap(gameInit) {
+    const mapPointer = JSON.parse(JSON.stringify(gameInit.mapData))
+    // eslint-disable-next-line no-multi-assign
+    mapPointer[3][3] = mapPointer[2][3] = mapPointer[3][2] = mapPointer[2][1] = mapPointer[1][3] = mapPointer[0][0] = 1
+    // eslint-disable-next-line no-param-reassign
+    gameInit.mapData = mapPointer
+  }
 }
 
 export default App
