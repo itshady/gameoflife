@@ -27,12 +27,13 @@ function App() {
     setGameActive(game.isActive)
   }
 
-  const gameControl = InitializeGameControl()
-  const [game] = useState(gameControl)
-  const [map, setMap] = useState(game.mapData)
-  const [gameActive, setGameActive] = useState(game.isActive)
+  const [game, setGame] = useState(new GameControl(1, 1))
+  // eslint-disable-next-line no-unused-vars
+  const [map, setMap] = useState('')
+  const [gameActive, setGameActive] = useState('')
   const [generationCount, setGenerationCount] = useState(0)
   const [intervalTime, setIntervalTime] = useState(1000)
+  const [render, setRender] = useState(0)
 
   const updateMap = (newMap) => {
     setMap(newMap)
@@ -40,9 +41,20 @@ function App() {
   }
 
   useEffect(() => {
+    const gameControl = InitializeGameControl()
+    console.log('[] useeffect')
+    setGame(gameControl)
+  }, [])
+
+  useEffect(() => {
+    console.log('[game] useeffect')
+    console.log(game)
+    setMap(game.mapData)
+    setGameActive(game.isActive)
     const nextMapData = JSON.parse(JSON.stringify(game.mapData))
     updateMap(nextMapData)
-  }, [])
+    setRender(1)
+  }, [game])
 
   const toggleGameState = () => {
     if (gameActive) {
@@ -61,22 +73,26 @@ function App() {
     game.stop()
     game.start(intervalTime)
   }
-
-  return (
-    <div className="app d-flex flex-column align-items-center">
-      <Grid
-        mapData={map}
-        setMap={updateMap}
-      />
-      <div className="app d-flex flex-row justify-content-between button-container">
-        <Button onClick={toggleGameState} key="button-start">{gameActive ? 'Stop' : 'Start'}</Button>
-        <Button onClick={handleNext} disabled={gameActive} key="button-next">Next</Button>
-        <div>{generationCount}</div>
-        <Form.Label><MdNextPlan /></Form.Label>
-        <Form.Label><MdOutlineSpeed /></Form.Label>
-        <Form.Range value={MAXINTERVAL - intervalTime} onChange={handleInterval} min={0} max={MAXINTERVAL} />
+  if (render) {
+    return (
+      <div className="app d-flex flex-column align-items-center">
+        <Grid
+          mapData={map}
+          setMap={updateMap}
+        />
+        <div className="app d-flex flex-row justify-content-between button-container">
+          <Button onClick={toggleGameState} key="button-start">{gameActive ? 'Stop' : 'Start'}</Button>
+          <Button onClick={handleNext} disabled={gameActive} key="button-next">Next</Button>
+          <div>{generationCount}</div>
+          <Form.Label><MdNextPlan /></Form.Label>
+          <Form.Label><MdOutlineSpeed /></Form.Label>
+          <Form.Range value={MAXINTERVAL - intervalTime} onChange={handleInterval} min={0} max={MAXINTERVAL} />
+        </div>
       </div>
-    </div>
+    )
+  }
+  return (
+    <div>Not Ready</div>
   )
 
   function InitializeGameControl() {
