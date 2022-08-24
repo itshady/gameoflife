@@ -25,8 +25,8 @@ class GameControl {
   start(intervalTime) {
     this.intervalId = setInterval(() => {
       this.gameLoop()
+      this.onGameStart()
     }, intervalTime)
-    this.onGameStart()
   }
 
   stop() {

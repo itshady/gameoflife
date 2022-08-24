@@ -34,7 +34,7 @@ class HtmlApp {
     })
   }
 
-  updateGenerationCount() {
+  renderGenerationCount() {
     const generationCount = document.getElementById('generation-count')
     generationCount.innerHTML = this.gameControl.generationCount
   }
@@ -42,31 +42,26 @@ class HtmlApp {
   onNext() {
     this.gameControl.gameLoop()
     this.renderMap()
-    this.updateGenerationCount()
+    this.renderGenerationCount()
   }
 
   onStart() {
-    this.gameControl.gameLoop()
-    this.renderMap()
-    this.updateGenerationCount()
+    this.gameControl.start(1000)
   }
 
   onStop() {
-    this.gameControl.gameLoop()
-    this.renderMap()
-    this.updateGenerationCount()
+    this.gameControl.stop()
   }
 
   onGameStateChange() {
-    console.log('onGameStateChange')
+    this.renderMap()
+    this.renderGenerationCount()
   }
 
-  onGameLoop() {
-    console.log('onGameLoop')
-  }
+  onGameLoop() {}
 
   initializeGameControl() {
-    const gameInit = new GameControl(11, 11, this.onGameStateChange, this.onGameStateChange, this.onGameLoop)
+    const gameInit = new GameControl(11, 11, this.onGameStateChange.bind(this), this.onGameStateChange.bind(this), this.onGameLoop)
     this.setInitialGameMap(gameInit)
     return gameInit
   }
