@@ -1,7 +1,7 @@
-import UnderPopulation from './UnderPopulation'
-import Survive from './Survive'
-import OverPopulation from './OverPopulation'
-import Reproduction from './Reproduction'
+import UnderPopulation from './UnderPopulation.js'
+import Survive from './Survive.js'
+import OverPopulation from './OverPopulation.js'
+import Reproduction from './Reproduction.js'
 
 /* eslint-disable no-underscore-dangle */
 class Rules {

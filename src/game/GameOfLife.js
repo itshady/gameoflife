@@ -1,4 +1,4 @@
-import Rules from './rules/Rules'
+import Rules from './rules/Rules.js'
 
 /* eslint-disable no-underscore-dangle */
 class GameOfLife {

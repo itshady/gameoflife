@@ -1,4 +1,4 @@
-import GameOfLife from './GameOfLife'
+import GameOfLife from './GameOfLife.js'
 
 class GameControl {
   constructor(width, height, onGameStart, onGameStop, onGameLoop) {
