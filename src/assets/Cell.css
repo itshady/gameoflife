@@ -15,3 +15,7 @@
 .dead {
   background-color: red;
 }
+
+#grid {
+  border-collapse: separate;
+}

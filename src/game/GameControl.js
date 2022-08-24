@@ -8,8 +8,6 @@ class GameControl {
     this.onGameStart = onGameStart
     this.onGameStop = onGameStop
     this.onGameLoop = onGameLoop
-    // eslint-disable-next-line no-console
-    console.log('.')
   }
 
   get isActive() {
