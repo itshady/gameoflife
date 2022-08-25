@@ -40,28 +40,28 @@ class HtmlApp {
   }
 
   onNext() {
-    this.gameControl.gameLoop()
+    this.gameControl.nextGeneration()
     this.renderMap()
     this.renderGenerationCount()
   }
 
   onStart() {
-    this.gameControl.start(1000)
+    this.gameControl.start(50)
   }
 
   onStop() {
     this.gameControl.stop()
   }
 
-  onGameStateChange() {
+  onGameStateChange() {}
+
+  onGameLoop() {
     this.renderMap()
     this.renderGenerationCount()
   }
 
-  onGameLoop() {}
-
   initializeGameControl() {
-    const gameInit = new GameControl(11, 11, this.onGameStateChange.bind(this), this.onGameStateChange.bind(this), this.onGameLoop)
+    const gameInit = new GameControl(11, 11, this.onGameStateChange.bind(this), this.onGameStateChange.bind(this), this.onGameLoop.bind(this))
     this.setInitialGameMap(gameInit)
     return gameInit
   }

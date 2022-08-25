@@ -1,13 +1,13 @@
 import GameOfLife from './GameOfLife.js'
 
 class GameControl {
-  constructor(width, height, onGameStart, onGameStop, onGameLoop) {
+  constructor(width, height, onGameStart, onGameStop, onGameNext) {
     this.gameEngine = new GameOfLife(width, height)
     this.generationCount = 0
     this.intervalId = 0
     this.onGameStart = onGameStart
     this.onGameStop = onGameStop
-    this.onGameLoop = onGameLoop
+    this.onGameNext = onGameNext
   }
 
   get isActive() {
@@ -24,9 +24,9 @@ class GameControl {
 
   start(intervalTime) {
     this.intervalId = setInterval(() => {
-      this.gameLoop()
-      this.onGameStart()
+      this.nextGeneration()
     }, intervalTime)
+    this.onGameStart()
   }
 
   stop() {
@@ -35,10 +35,10 @@ class GameControl {
     this.onGameStop()
   }
 
-  gameLoop() {
+  nextGeneration() {
     this.gameEngine.nextGeneration()
     this.generationCount += 1
-    this.onGameLoop()
+    this.onGameNext()
   }
 }
 
