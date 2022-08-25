@@ -8,10 +8,10 @@ class HtmlApp {
   }
 
   onLoad() {
-    this.renderMap()
+    this.initMap()
   }
 
-  renderMap() {
+  initMap() {
     const table = document.getElementById('grid').getElementsByTagName('tbody')[0]
     table.innerHTML = ''
 
@@ -34,6 +34,26 @@ class HtmlApp {
     })
   }
 
+  updateMap() {
+    // const table = document.getElementById('grid').getElementsByTagName('tbody')[0]
+
+    const updateCell = (cellData, i, j) => {
+      const cell = document.getElementById(`${i}-${j}`)
+      cell.className = `cell ${cellData ? 'alive' : 'dead'}`
+    }
+
+    const updateRow = (rowData, i) => {
+      // const row = table.querySelector(`#${i}`)
+      rowData.forEach((cellData, j) => {
+        updateCell(cellData, i, j)
+      })
+    }
+
+    this.gameControl.mapData.forEach((rowData, i) => {
+      updateRow(rowData, i)
+    })
+  }
+
   renderGenerationCount() {
     const generationCount = document.getElementById('generation-count')
     generationCount.innerHTML = this.gameControl.generationCount
@@ -41,7 +61,7 @@ class HtmlApp {
 
   onNext() {
     this.gameControl.nextGeneration()
-    this.renderMap()
+    this.updateMap()
     this.renderGenerationCount()
   }
 
@@ -56,12 +76,12 @@ class HtmlApp {
   onGameStateChange() {}
 
   onGameLoop() {
-    this.renderMap()
+    this.updateMap()
     this.renderGenerationCount()
   }
 
   initializeGameControl() {
-    const gameInit = new GameControl(11, 11, this.onGameStateChange.bind(this), this.onGameStateChange.bind(this), this.onGameLoop.bind(this))
+    const gameInit = new GameControl(100, 100, this.onGameStateChange.bind(this), this.onGameStateChange.bind(this), this.onGameLoop.bind(this))
     this.setInitialGameMap(gameInit)
     return gameInit
   }
