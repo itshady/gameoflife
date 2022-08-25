@@ -19,6 +19,10 @@ class HtmlApp {
       const newCell = newRow.insertCell(j)
       newCell.id = `${i}-${j}`
       newCell.className = `cell ${cellData ? 'alive' : 'dead'}`
+      newCell.onclick = () => {
+        this.gameControl.mapData[i][j] = this.gameControl.mapData[i][j] ? 0 : 1
+        newCell.className = `cell ${this.gameControl.mapData[i][j] ? 'alive' : 'dead'}`
+      }
     }
 
     const loadRow = (rowData, i) => {
@@ -81,7 +85,7 @@ class HtmlApp {
   }
 
   initializeGameControl() {
-    const gameInit = new GameControl(100, 100, this.onGameStateChange.bind(this), this.onGameStateChange.bind(this), this.onGameLoop.bind(this))
+    const gameInit = new GameControl(11, 11, this.onGameStateChange.bind(this), this.onGameStateChange.bind(this), this.onGameLoop.bind(this))
     this.setInitialGameMap(gameInit)
     return gameInit
   }
