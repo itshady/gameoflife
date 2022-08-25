@@ -77,6 +77,13 @@ class HtmlApp {
     this.gameControl.stop()
   }
 
+  onReset() {
+    this.gameControl.stop()
+    this.gameControl.reset()
+    this.setInitialGameMap(this.gameControl)
+    this.updateMap()
+  }
+
   onGameStateChange() {}
 
   onGameLoop() {
