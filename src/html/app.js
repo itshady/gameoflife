@@ -70,7 +70,9 @@ class HtmlApp {
   }
 
   onStart() {
-    this.gameControl.start(1000)
+    const newSpeed = document.getElementById('speed').value
+    this.onStop()
+    this.gameControl.start(newSpeed)
   }
 
   onStop() {
