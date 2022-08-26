@@ -83,12 +83,14 @@ class HtmlApp {
     this.gameControl.stop()
     this.gameControl.reset(this.setInitialGameMap())
     this.updateMap()
+    this.renderGenerationCount()
   }
 
   onClear() {
     this.gameControl.stop()
     this.gameControl.reset(this.emptyGameMap())
     this.updateMap()
+    this.renderGenerationCount()
   }
 
   onGameStateChange() {}
