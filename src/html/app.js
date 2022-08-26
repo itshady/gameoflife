@@ -70,7 +70,7 @@ class HtmlApp {
   }
 
   onStart() {
-    this.gameControl.start(50)
+    this.gameControl.start(1000)
   }
 
   onStop() {
@@ -79,8 +79,13 @@ class HtmlApp {
 
   onReset() {
     this.gameControl.stop()
-    this.gameControl.reset()
-    this.setInitialGameMap(this.gameControl)
+    this.gameControl.reset(this.setInitialGameMap())
+    this.updateMap()
+  }
+
+  onClear() {
+    this.gameControl.stop()
+    this.gameControl.reset(this.emptyGameMap())
     this.updateMap()
   }
 
@@ -89,7 +94,6 @@ class HtmlApp {
   onGameLoop() {
     this.updateMap()
     this.renderGenerationCount()
-    console.log(this.gameControl.history)
   }
 
   initializeGameControl() {
@@ -100,11 +104,21 @@ class HtmlApp {
 
   setInitialGameMap() {
     return [
-      [1, 0, 0, 0, 0],
-      [1, 0, 0, 0, 0],
-      [1, 0, 0, 0, 0],
-      [1, 0, 0, 0, 0],
-      [1, 0, 0, 0, 0],
+      [1, 1, 0, 0, 0],
+      [1, 1, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+    ]
+  }
+
+  emptyGameMap() {
+    return [
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0],
     ]
   }
 }

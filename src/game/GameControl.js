@@ -2,12 +2,11 @@ import GameOfLife from './GameOfLife.js'
 
 class GameControl {
   constructor(initMap, onGameStart, onGameStop, onGameNext) {
-    this.initMap = initMap
     this.intervalId = 0
     this.onGameStart = onGameStart
     this.onGameStop = onGameStop
     this.onGameNext = onGameNext
-    this.reset()
+    this.reset(initMap)
   }
 
   get isActive() {
@@ -45,8 +44,8 @@ class GameControl {
     this.onGameNext()
   }
 
-  reset() {
-    this.gameEngine = new GameOfLife(this.initMap)
+  reset(map) {
+    this.gameEngine = new GameOfLife(map)
     this.generationCount = 0
   }
 }
