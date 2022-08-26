@@ -5,6 +5,7 @@ import GameControl from '../game/GameControl.js'
 class HtmlApp {
   constructor() {
     this.gameControl = this.initializeGameControl()
+    this.intervalTime = 1000
   }
 
   onLoad() {
@@ -70,9 +71,8 @@ class HtmlApp {
   }
 
   onStart() {
-    const newSpeed = document.getElementById('speed').value
     this.onStop()
-    this.gameControl.start(newSpeed)
+    this.gameControl.start(this.intervalTime)
   }
 
   onStop() {
@@ -91,6 +91,12 @@ class HtmlApp {
     this.gameControl.reset(this.emptyGameMap())
     this.updateMap()
     this.renderGenerationCount()
+  }
+
+  onSpeedChange() {
+    const newSpeed = document.getElementById('speed').value
+    this.intervalTime = newSpeed
+    if (this.gameControl.isActive) this.onStart()
   }
 
   onGameStateChange() {}
