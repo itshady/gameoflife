@@ -23,6 +23,10 @@ class GameControl {
     this.gameEngine.mapData = newMapData
   }
 
+  get history() {
+    return this.gameEngine.history
+  }
+
   start(intervalTime) {
     this.intervalId = setInterval(() => {
       this.nextGeneration()

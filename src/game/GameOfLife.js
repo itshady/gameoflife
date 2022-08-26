@@ -5,6 +5,7 @@ class GameOfLife {
   constructor(width, height) {
     this.height = height
     this.width = width
+    this.history = []
     this.mapData = Array.from(Array(this.height), () => Array(this.width).fill(0))
   }
 
@@ -17,6 +18,7 @@ class GameOfLife {
   }
 
   nextGeneration() {
+    this.history.push(this.mapData)
     const tempMap = Array.from(Array(this.height), () => Array(this.width).fill(0))
     for (let i = 0; i < this.height; i += 1) {
       for (let j = 0; j < this.width; j += 1) {

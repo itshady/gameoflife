@@ -89,6 +89,7 @@ class HtmlApp {
   onGameLoop() {
     this.updateMap()
     this.renderGenerationCount()
+    console.log(this.gameControl.history)
   }
 
   initializeGameControl() {
