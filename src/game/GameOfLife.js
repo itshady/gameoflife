@@ -2,11 +2,18 @@ import Rules from './rules/Rules.js'
 
 /* eslint-disable no-underscore-dangle */
 class GameOfLife {
-  constructor(width, height) {
-    this.height = height
-    this.width = width
+  constructor(map) {
+    this.width = map[0].length
+    this.height = map.length
     this.history = []
-    this.mapData = Array.from(Array(this.height), () => Array(this.width).fill(0))
+    this.mapData = map
+    // this.history[0] = [
+    //   [0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0],
+    //   [0, 0, 0, 0, 0],
+    //   [1, 0, 0, 0, 0],
+    // ]
   }
 
   get mapData() {

@@ -1,9 +1,8 @@
 import GameOfLife from './GameOfLife.js'
 
 class GameControl {
-  constructor(width, height, onGameStart, onGameStop, onGameNext) {
-    this.width = width
-    this.height = height
+  constructor(initMap, onGameStart, onGameStop, onGameNext) {
+    this.initMap = initMap
     this.intervalId = 0
     this.onGameStart = onGameStart
     this.onGameStop = onGameStop
@@ -47,7 +46,7 @@ class GameControl {
   }
 
   reset() {
-    this.gameEngine = new GameOfLife(this.width, this.height)
+    this.gameEngine = new GameOfLife(this.initMap)
     this.generationCount = 0
   }
 }

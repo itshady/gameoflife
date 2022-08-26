@@ -93,14 +93,19 @@ class HtmlApp {
   }
 
   initializeGameControl() {
-    const gameInit = new GameControl(11, 11, this.onGameStateChange.bind(this), this.onGameStateChange.bind(this), this.onGameLoop.bind(this))
-    this.setInitialGameMap(gameInit)
+    const map = this.setInitialGameMap()
+    const gameInit = new GameControl(map, this.onGameStateChange.bind(this), this.onGameStateChange.bind(this), this.onGameLoop.bind(this))
     return gameInit
   }
 
-  setInitialGameMap(gameInit) {
-    // eslint-disable-next-line no-param-reassign, no-multi-assign
-    gameInit.mapData[3][3] = gameInit.mapData[2][3] = gameInit.mapData[3][2] = gameInit.mapData[2][1] = gameInit.mapData[1][3] = gameInit.mapData[0][0] = 1
+  setInitialGameMap() {
+    return [
+      [1, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0],
+      [1, 0, 0, 0, 0],
+    ]
   }
 }
 
