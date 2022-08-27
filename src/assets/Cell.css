@@ -1,6 +1,38 @@
-* {
+@font-face {
+  font-family: "HandelGothic";
+  src: url("fonts/a97dc52b4b2059e5f04907cb7492af0b.eot"); /* IE9*/
+  src: url("fonts/a97dc52b4b2059e5f04907cb7492af0b.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+  url("fonts/a97dc52b4b2059e5f04907cb7492af0b.woff2") format("woff2"), /* chrome、firefox */
+  url("fonts/a97dc52b4b2059e5f04907cb7492af0b.woff") format("woff"), /* chrome、firefox */
+  url("fonts/a97dc52b4b2059e5f04907cb7492af0b.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url("fonts/a97dc52b4b2059e5f04907cb7492af0b.svg#Handel Gothic") format("svg"); /* iOS 4.1- */
+  font-weight: bold;
+  font-display: swap;
+}
+
+:root {
+  --primary: #2a4e97;
+  --light: #fff;
+  --dark-primary: #1b3262;
+  --bg-header: #4285d7;
+  --bg-primary: #CCCCCC;
+  --bg-secondary: #444;
+}
+
+body {
   margin: 0;
-  gap: 0;
+  background-color: var(--bg-primary);
+}
+
+.header {
+  background-color: var(--bg-header);
+  color: var(--dark-primary);
+  font-size: 50px;
+  font-family: HandelGothic, Trebuchet MS, sans-serif;
+}
+
+.map-grid {
+  background-color: var(--bg-secondary)
 }
 
 .cell {
@@ -14,9 +46,15 @@
 }
 
 .dead {
-  background-color: red;
+  background-color: var(--bg-primary);
 }
 
 #grid {
   border-collapse: separate;
+  background-color: var(--light);
+}
+
+.btn {
+  width: 170px;
+  font-size: 1.5rem;
 }
