@@ -44,8 +44,14 @@ class GameControl {
     this.onGameNext()
   }
 
+  validate(map) {
+    const { length } = map[0]
+    return map.every((rowData) => rowData.length === length)
+  }
+
   reset(map) {
-    this.gameEngine = new GameOfLife(map)
+    if (this.validate(map)) this.gameEngine =  new GameOfLife(map)
+    else throw 'Map Data invalid. Must be rectangular.'
     this.generationCount = 0
   }
 }

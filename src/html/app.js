@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable class-methods-use-this */
 import GameControl from '../game/GameControl.js'
 
 class HtmlApp {
@@ -40,15 +38,12 @@ class HtmlApp {
   }
 
   updateMap() {
-    // const table = document.getElementById('grid').getElementsByTagName('tbody')[0]
-
     const updateCell = (cellData, i, j) => {
       const cell = document.getElementById(`${i}-${j}`)
       cell.className = `cell ${cellData ? 'alive' : 'dead'}`
     }
 
     const updateRow = (rowData, i) => {
-      // const row = table.querySelector(`#${i}`)
       rowData.forEach((cellData, j) => {
         updateCell(cellData, i, j)
       })
