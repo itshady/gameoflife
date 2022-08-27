@@ -32,7 +32,11 @@ body {
 }
 
 .map-grid {
-  background-color: var(--bg-secondary)
+  background-color: var(--bg-secondary);
+}
+
+.wrapper {
+  position: relative;
 }
 
 .cell {
@@ -57,4 +61,12 @@ body {
 .btn {
   width: 170px;
   font-size: 1.5rem;
+  font-family: HandelGothic, Trebuchet MS, sans-serif;
+}
+
+.overlay {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  height: fit-content;
 }
