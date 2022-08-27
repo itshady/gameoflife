@@ -1,16 +1,17 @@
 import GameOfLife from './GameOfLife.js'
 
 class GameControl {
-  constructor(initMap, onGameStart, onGameStop, onGameNext) {
+  constructor(initMap, onGameStart, onGameStop, onGameNext, onBackGeneration) {
     this.intervalId = 0
     this.onGameStart = onGameStart
     this.onGameStop = onGameStop
     this.onGameNext = onGameNext
+    this.onBackGeneration = onBackGeneration
     this.reset(initMap)
   }
 
   get isActive() {
-    return this.intervalId !== 0
+    return this.generationCount !== 0
   }
 
   get mapData() {
@@ -53,6 +54,14 @@ class GameControl {
     if (this.validate(map)) this.gameEngine =  new GameOfLife(map)
     else throw 'Map Data invalid. Must be rectangular.'
     this.generationCount = 0
+  }
+
+  backGeneration() {
+    if (this.isActive) {
+      this.gameEngine.mapData = this.gameEngine.history.pop() // pop also removes the last element from the array permenantly
+      this.generationCount -= 1
+    }
+    this.onBackGeneration()
   }
 }
 

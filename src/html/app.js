@@ -76,7 +76,7 @@ class HtmlApp {
 
   onReset() {
     this.gameControl.stop()
-    this.gameControl.reset(this.setInitialGameMap())
+    this.gameControl.isActive ? this.gameControl.reset(this.gameControl.history[0]) : this.gameControl.reset(this.setInitialGameMap())
     this.updateMap()
     this.renderGenerationCount()
   }
@@ -94,6 +94,10 @@ class HtmlApp {
     if (this.gameControl.isActive) this.onStart()
   }
 
+  onBack() {
+    this.gameControl.backGeneration()
+  }
+
   onGameStateChange() {}
 
   onGameLoop() {
@@ -103,7 +107,7 @@ class HtmlApp {
 
   initializeGameControl() {
     const map = this.setInitialGameMap()
-    const gameInit = new GameControl(map, this.onGameStateChange.bind(this), this.onGameStateChange.bind(this), this.onGameLoop.bind(this))
+    const gameInit = new GameControl(map, this.onGameStateChange.bind(this), this.onGameStateChange.bind(this), this.onGameLoop.bind(this), this.onGameLoop.bind(this))
     return gameInit
   }
 
