@@ -12,11 +12,17 @@
 
 :root {
   --primary: #2a4e97;
-  --light: #fff;
+  --light: #8c8c8c;
   --dark-primary: #1b3262;
   --bg-header: #4285d7;
-  --bg-primary: #CCCCCC;
+  --bg-primary: #646464;
   --bg-secondary: #444;
+  --cell-dead: #7e7e7e;
+  --cell-alive: #ffff00;
+}
+
+html {
+  accent-color: var(--primary);
 }
 
 body {
@@ -46,11 +52,11 @@ body {
 }
 
 .alive{
-  background-color: green;
+  background-color: var(--cell-alive);
 }
 
 .dead {
-  background-color: var(--bg-primary);
+  background-color: var(--cell-dead);
 }
 
 #grid {
@@ -69,4 +75,13 @@ body {
   right: 10px;
   bottom: 10px;
   height: fit-content;
+  background-color: var(--bg-primary);
+}
+
+input::-webkit-slider-thumb {
+  background-color: var(--primary)
+}
+
+.speed-range {
+  color: var(--primary);
 }
