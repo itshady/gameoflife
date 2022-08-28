@@ -2,7 +2,6 @@
   font-family: "HandelGothic";
   src: url("fonts/a97dc52b4b2059e5f04907cb7492af0b.eot"); /* IE9*/
   src: url("fonts/a97dc52b4b2059e5f04907cb7492af0b.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
-  url("fonts/a97dc52b4b2059e5f04907cb7492af0b.woff2") format("woff2"), /* chrome、firefox */
   url("fonts/a97dc52b4b2059e5f04907cb7492af0b.woff") format("woff"), /* chrome、firefox */
   url("fonts/a97dc52b4b2059e5f04907cb7492af0b.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
   url("fonts/a97dc52b4b2059e5f04907cb7492af0b.svg#Handel Gothic") format("svg"); /* iOS 4.1- */
@@ -28,7 +27,7 @@ html {
 body {
   margin: 0;
   background-color: var(--bg-primary);
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .app {
@@ -51,8 +50,8 @@ body {
 }
 
 .cell {
-  width:13px;
-  height:13px;
+  width:12px;
+  height:12px;
   cursor: pointer;
 }
 
@@ -113,4 +112,14 @@ input::-webkit-slider-thumb {
 
 img {
   cursor: pointer;
+}
+
+#load-pattern {
+  width: fit-content;
+  height: fit-content;
+}
+
+#name {
+  width: fit-content;
+  height: fit-content;
 }

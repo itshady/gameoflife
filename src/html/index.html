@@ -39,10 +39,18 @@
         <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onClear()">Clear</button>
       </div>
 
-      <!-- Button trigger Lexicon -->
-      <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" data-bs-toggle="modal" data-bs-target="#lexicon-modal">
-        Lexicon
-      </button>
+      <div class="d-flex flex-row flex-wrap justify-content-center align-items-center mt-3 w-100">
+        <!-- Button trigger Lexicon -->
+        <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" data-bs-toggle="modal" data-bs-target="#lexicon-modal">
+          Lexicon
+        </button>
+        <button type="button" class="btn btn-main btn-success text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.savePattern()">Save</button>
+        <input type="text" class="form-control" id="name" placeholder="Pattern Name...">
+        <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.loadPattern()">Load Save</button>
+        <select class="form-select" id="load-pattern" aria-label="Default select example">
+
+        </select>
+      </div>
     </div>
   </div>
 
