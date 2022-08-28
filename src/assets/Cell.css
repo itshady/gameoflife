@@ -65,9 +65,12 @@ body {
 }
 
 .btn {
+  font-family: HandelGothic, Trebuchet MS, sans-serif;
+}
+
+.btn-main {
   width: 170px;
   font-size: 1.5rem;
-  font-family: HandelGothic, Trebuchet MS, sans-serif;
 }
 
 .overlay {
@@ -84,4 +87,18 @@ input::-webkit-slider-thumb {
 
 .speed-range {
   color: var(--primary);
+}
+
+.modal-content {
+  background-color: var(--bg-secondary);
+  color: white; 
+}
+
+.modal-content > * {
+  border: none;
+}
+
+.lexicon-item {
+  background-color: var(--bg-primary);
+  cursor: pointer;
 }

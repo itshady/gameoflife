@@ -30,13 +30,40 @@
     </div>
 
     <div class="app d-flex flex-row flex-wrap justify-content-center mt-3 w-100">
-      <button type="button" class="btn btn-success text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onStart()">Start</button>
-      <button type="button" class="btn btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onStop()">Stop</button>
-      <button type="button" class="btn btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onBack()">« Back</button>
-      <button type="button" class="btn btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onNext()">Next »</button>
-      <button type="button" class="btn btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onReset()">Reset</button>
-      <button type="button" class="btn btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onClear()">Clear</button>
+      <button type="button" class="btn btn-main btn-success text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onStart()">Start</button>
+      <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onStop()">Stop</button>
+      <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onBack()">« Back</button>
+      <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onNext()">Next »</button>
+      <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onReset()">Reset</button>
+      <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onClear()">Clear</button>
     </div>
 
+    <!-- Button trigger Lexicon -->
+    <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" data-bs-toggle="modal" data-bs-target="#lexicon-modal">
+      Lexicon
+    </button>
+  </div>
+
+  <!-- Modal Lexicon -->
+  <div class="modal fade" id="lexicon-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="lexicon">
+          <!-- <div class="card lexicon-item">
+            <p class="modal-title">1-2-3-4</p>
+            <p>Description goes here</p>
+            <a></a>
+          </div> -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
