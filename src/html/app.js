@@ -1,5 +1,7 @@
 import GameControl from '../game/GameControl.js'
 
+const MINSPEED = 2000
+
 class HtmlApp {
   constructor() {
     this.gameControl = this.initializeGameControl()
@@ -91,7 +93,7 @@ class HtmlApp {
 
   onSpeedChange() {
     const newSpeed = document.getElementById('speed').value
-    this.intervalTime = newSpeed
+    this.intervalTime = MINSPEED - newSpeed
     if (this.gameControl.isActive) this.onStart()
   }
 
