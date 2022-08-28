@@ -100,5 +100,12 @@ input::-webkit-slider-thumb {
 
 .lexicon-item {
   background-color: var(--bg-primary);
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+img {
   cursor: pointer;
 }
