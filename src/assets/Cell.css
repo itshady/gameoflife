@@ -28,6 +28,11 @@ html {
 body {
   margin: 0;
   background-color: var(--bg-primary);
+  overflow: hidden;
+}
+
+.app {
+  height: 100vh;
 }
 
 .header {

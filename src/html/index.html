@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../assets/scrollbar.css">
 </head>
 <body onload="window.app.onLoad()">
-  <div class="app d-flex flex-column align-items-center">
+  <div class="app d-flex flex-column justify-content-start align-items-center">
     <div class="header h1 w-100 p-3 mb-0 fw-bold">Game Of Life</div>
     <div class="map-grid d-flex flex-row justify-content-center w-100 p-3">
       <div class="wrapper">
@@ -29,20 +29,21 @@
       </div>
     </div>
     </div>
+    <div class="d-flex flex-column justify-content-end align-items-center mb-3 h-100">
+      <div class="d-flex flex-row flex-wrap justify-content-center mt-3 w-100">
+        <button type="button" class="btn btn-main btn-success text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onStart()">Start</button>
+        <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onStop()">Stop</button>
+        <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onBack()">« Back</button>
+        <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onNext()">Next »</button>
+        <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onReset()">Reset</button>
+        <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onClear()">Clear</button>
+      </div>
 
-    <div class="app d-flex flex-row flex-wrap justify-content-center mt-3 w-100">
-      <button type="button" class="btn btn-main btn-success text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onStart()">Start</button>
-      <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onStop()">Stop</button>
-      <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onBack()">« Back</button>
-      <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onNext()">Next »</button>
-      <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onReset()">Reset</button>
-      <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.onClear()">Clear</button>
+      <!-- Button trigger Lexicon -->
+      <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" data-bs-toggle="modal" data-bs-target="#lexicon-modal">
+        Lexicon
+      </button>
     </div>
-
-    <!-- Button trigger Lexicon -->
-    <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" data-bs-toggle="modal" data-bs-target="#lexicon-modal">
-      Lexicon
-    </button>
   </div>
 
   <!-- Modal Lexicon -->
