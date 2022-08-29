@@ -17,7 +17,7 @@ class HtmlApp {
   savePattern() {
     // documentation on localStorage: https://javascript.plainenglish.io/3-ways-to-store-data-in-the-browser-db11c412104b
     const name = document.getElementById('name').value
-    if (!localStorage.getItem(name)) {
+    if (!localStorage.getItem(name) && name !== '') {
       localStorage.setItem(name, JSON.stringify(this.gameControl.mapData))
       this.appendPattern(name)
     }
@@ -26,9 +26,7 @@ class HtmlApp {
   loadPattern() {
     const fetchName = document.getElementById('load-pattern').value
     const map = JSON.parse(localStorage.getItem(fetchName))
-    if (map) this.gameControl.reset(map)
-    this.updateMap()
-    this.renderGenerationCount()
+    if (map) this.handleReset(map)
   }
 
   appendPattern(value) {
@@ -109,17 +107,18 @@ class HtmlApp {
   }
 
   onReset() {
+    this.gameControl.isActive ? this.handleReset(this.gameControl.history[0]) : this.handleReset(this.setInitialGameMap())
+  }
+
+  handleReset(newMap) {
     this.gameControl.stop()
-    this.gameControl.isActive ? this.gameControl.reset(this.gameControl.history[0]) : this.gameControl.reset(this.setInitialGameMap())
+    this.gameControl.reset(newMap)
     this.updateMap()
     this.renderGenerationCount()
   }
 
   onClear() {
-    this.gameControl.stop()
-    this.gameControl.reset(this.emptyGameMap())
-    this.updateMap()
-    this.renderGenerationCount()
+    this.handleReset(this.emptyGameMap())
   }
 
   onSpeedChange() {
@@ -176,9 +175,7 @@ class HtmlApp {
       image.onclick = () => {
         const myModalEl = document.getElementById('lexicon-modal')
         const modal = bootstrap.Modal.getInstance(myModalEl) 
-        this.gameControl.reset(data.map)
-        this.updateMap()
-        this.renderGenerationCount()
+        this.handleReset(data.map)
         modal.hide()
       }
       body.append(card)
