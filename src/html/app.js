@@ -31,7 +31,7 @@ class HtmlApp {
   }
 
   setInitialGameMap() {
-    const map = Array.from(Array(30), _ => Array(80).fill(0))
+    const map = Array.from(Array(11), _ => Array(20).fill(0))
     map[3][3] = map[2][3] = map[3][2] = map[2][1] = map[1][3] = 1
     return map
   }

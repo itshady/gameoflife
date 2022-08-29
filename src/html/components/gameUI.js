@@ -16,8 +16,9 @@ class GameUI {
       newCell.id = `${i}-${j}`
       newCell.className = `cell ${cellData ? `alive-${cellData}` : 'dead'}`
       newCell.onclick = () => {
-        this.gameControl.mapData[i][j] = this.gameControl.mapData[i][j] ? 0 : 1
-        newCell.className = `cell ${this.gameControl.mapData[i][j] ? `alive-${cellData}` : 'dead'}`
+        const newValue = this.gameControl.mapData[i][j] ? 0 : 1
+        this.gameControl.mapData[i][j] = newValue
+        newCell.className = `cell ${this.gameControl.mapData[i][j] ? `alive-${newValue}` : 'dead'}`
       }
     }
 
