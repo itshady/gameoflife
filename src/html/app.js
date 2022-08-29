@@ -29,6 +29,12 @@ class HtmlApp {
     if (map) this.handleReset(map)
   }
 
+  clearPatterns() {
+    const select = document.getElementById('load-pattern')
+    localStorage.removeItem(select.value)
+    select.options[select.selectedIndex].remove()
+  }
+
   appendPattern(value) {
     const select = document.getElementById('load-pattern')
     const patternName = document.createElement('option')
