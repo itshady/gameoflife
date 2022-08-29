@@ -123,3 +123,7 @@ img {
   width: fit-content;
   height: fit-content;
 }
+
+.game-over {
+  background-color: red !important;
+}

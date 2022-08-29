@@ -1,11 +1,12 @@
 import GameOfLife from './GameOfLife.js'
 
 class GameControl {
-  constructor(initMap, onGameStart, onGameStop, onGameNext, onBackGeneration) {
+  constructor(initMap, onGameStart, onGameStop, onGameNext, onBackGeneration, onGameOver) {
     this.intervalId = 0
     this.onGameStart = onGameStart
     this.onGameStop = onGameStop
     this.onGameNext = onGameNext
+    this.onGameOver = onGameOver
     this.onBackGeneration = onBackGeneration
     this.reset(initMap)
   }
@@ -40,9 +41,14 @@ class GameControl {
   }
 
   nextGeneration() {
+    if (this.gameEngine.isGameOver) return
     this.gameEngine.nextGeneration()
     this.generationCount += 1
     this.onGameNext()
+    if (this.gameEngine.isGameOver) {
+      this.stop()
+      this.onGameOver()
+    }
   }
 
   validate(map) {
@@ -51,7 +57,7 @@ class GameControl {
   }
 
   reset(map) {
-    if (this.validate(map)) this.gameEngine =  new GameOfLife(map)
+    if (this.validate(map)) this.gameEngine = new GameOfLife(map)
     else throw 'Map Data invalid. Must be rectangular.'
     this.generationCount = 0
   }

@@ -51,6 +51,10 @@ class GameUI {
     })
   }
 
+  onGameOver() {
+    this.addGameOverUI()
+  }
+
   renderGenerationCount() {
     const generationCount = document.getElementById('generation-count')
     generationCount.innerHTML = this.gameControl.generationCount
@@ -58,8 +62,6 @@ class GameUI {
 
   onNext() {
     this.gameControl.nextGeneration()
-    this.updateMap()
-    this.renderGenerationCount()
   }
 
   onStart() {
@@ -79,8 +81,23 @@ class GameUI {
     this.saveStartMap(newMap)
     this.gameControl.stop()
     this.gameControl.reset(newMap)
+    this.removeGameOverUI()
     this.updateMap()
     this.renderGenerationCount()
+  }
+
+  removeGameOverUI() {
+    document.getElementById('game-over').classList.remove("game-over")
+    document.getElementById('btn-start').classList.remove("disabled")
+    document.getElementById('btn-stop').classList.remove("disabled")
+    document.getElementById('btn-next').classList.remove("disabled")
+  }
+
+  addGameOverUI() {
+    document.getElementById('game-over').classList.add("game-over")
+    document.getElementById('btn-start').classList.add("disabled")
+    document.getElementById('btn-stop').classList.add("disabled")
+    document.getElementById('btn-next').classList.add("disabled")
   }
 
   saveStartMap(newMap) {
@@ -98,6 +115,7 @@ class GameUI {
   }
 
   onBack() {
+    this.removeGameOverUI()
     this.gameControl.backGeneration()
   }
 

@@ -26,7 +26,7 @@ class HtmlApp {
 
   initializeGameControl() {
     const map = this.setInitialGameMap()
-    const gameInit = new GameControl(map, ()=>{}, ()=>{}, this.gameUI.onGameLoop.bind(this.gameUI), this.gameUI.onGameLoop.bind(this.gameUI))
+    const gameInit = new GameControl(map, ()=>{}, ()=>{}, this.gameUI.onGameLoop.bind(this.gameUI), this.gameUI.onGameLoop.bind(this.gameUI), this.gameUI.onGameOver.bind(this.gameUI))
     return gameInit
   }
 

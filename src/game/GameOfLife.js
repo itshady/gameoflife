@@ -16,6 +16,11 @@ class GameOfLife {
     this._mapData = newMapData
   }
 
+  get isGameOver() {
+    const lastGen = this.history[this.history.length - 1]
+    return JSON.stringify(lastGen) == JSON.stringify(this.mapData)
+  }
+
   nextGeneration() {
     this.history.push(this.mapData)
     const tempMap = Array.from(Array(this.height), () => Array(this.width).fill(0))
