@@ -1,9 +1,11 @@
 import GameControl from '../game/GameControl.js'
+import StorageUI from './storageUI.js'
 
 const MINSPEED = 2000
 
 class HtmlApp {
   constructor() {
+    this.storageUI = new StorageUI()
     this.gameControl = this.initializeGameControl()
     this.intervalTime = 1000
   }
@@ -11,41 +13,7 @@ class HtmlApp {
   onLoad() {
     this.initMap()
     this.renderLexicon()
-    this.renderPatterns()
-  }
-
-  savePattern() {
-    // documentation on localStorage: https://javascript.plainenglish.io/3-ways-to-store-data-in-the-browser-db11c412104b
-    const name = document.getElementById('name').value
-    if (!localStorage.getItem(name) && name !== '') {
-      localStorage.setItem(name, JSON.stringify(this.gameControl.mapData))
-      this.appendPattern(name)
-    }
-  }
-
-  loadPattern() {
-    const fetchName = document.getElementById('load-pattern').value
-    const map = JSON.parse(localStorage.getItem(fetchName))
-    if (map) this.handleReset(map)
-  }
-
-  clearPatterns() {
-    const select = document.getElementById('load-pattern')
-    localStorage.removeItem(select.value)
-    select.options[select.selectedIndex].remove()
-  }
-
-  appendPattern(value) {
-    const select = document.getElementById('load-pattern')
-    const patternName = document.createElement('option')
-    patternName.value = patternName.innerHTML = value
-    select.append(patternName)
-  }
-
-  renderPatterns() {
-    for (var i = 0; i < localStorage.length; i++){
-      this.appendPattern(localStorage.key(i))
-    }
+    this.storageUI.renderPatterns()
   }
 
   initMap() {

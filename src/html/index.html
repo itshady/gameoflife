@@ -51,16 +51,17 @@
           Lexicon
         </button>
         <div class="d-flex flex-row flex-nowrap align-items-center">
-          <button type="button" class="btn btn-main btn-success text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.savePattern()">Save</button>
+          <button type="button" class="btn btn-main btn-success text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.storageUI.savePattern()">Save</button>
           <input type="text" class="form-control" id="name" placeholder="Pattern Name...">
         </div>
         <div class="d-flex flex-row flex-nowrap align-items-center">
-          <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.loadPattern()">Load Save</button>
+          <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.storageUI.loadPattern()">Load Save</button>
           <select class="form-select" id="load-pattern" aria-label="Default select example">
 
           </select>
         </div>
-        <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.clearPatterns()">Clear Save</button>
+        <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.storageUI.clearPattern()">Delete</button>
+        <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.storageUI.clearPatterns()">Clear Save</button>
       </div>
     </div>
   </div>
