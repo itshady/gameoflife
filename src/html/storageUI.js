@@ -1,8 +1,9 @@
 import MapStorage from './mapStorage.js'
 
 class StorageUI {
-  constructor() {
+  constructor(gameControl) {
     this.mapStorage = new MapStorage()
+    this.gameControl = gameControl
   }
   
   savePattern() {
@@ -18,7 +19,7 @@ class StorageUI {
   loadPattern() {
     const fetchName = document.getElementById('load-pattern').value
     const map = this.mapStorage.load(fetchName)
-    if (map) this.handleReset(map)
+    if (map) this.onPatternLoad(map)
   }
 
   clearPattern() {
