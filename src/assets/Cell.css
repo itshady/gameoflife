@@ -17,7 +17,8 @@
   --bg-primary: #646464;
   --bg-secondary: #444;
   --cell-dead: #7e7e7e;
-  --cell-alive: #ffff00;
+  --cell-alive-1: #ffff00;
+  --cell-alive-2: green;
 }
 
 html {
@@ -55,8 +56,12 @@ body {
   cursor: pointer;
 }
 
-.alive{
-  background-color: var(--cell-alive);
+.alive-1 {
+  background-color: var(--cell-alive-1);
+}
+
+.alive-2 {
+  background-color: var(--cell-alive-2);
 }
 
 .dead {

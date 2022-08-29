@@ -14,10 +14,10 @@ class GameUI {
     const loadCell = (newRow, cellData, i, j) => {
       const newCell = newRow.insertCell(j)
       newCell.id = `${i}-${j}`
-      newCell.className = `cell ${cellData ? 'alive' : 'dead'}`
+      newCell.className = `cell ${cellData ? `alive-${cellData}` : 'dead'}`
       newCell.onclick = () => {
         this.gameControl.mapData[i][j] = this.gameControl.mapData[i][j] ? 0 : 1
-        newCell.className = `cell ${this.gameControl.mapData[i][j] ? 'alive' : 'dead'}`
+        newCell.className = `cell ${this.gameControl.mapData[i][j] ? `alive-${cellData}` : 'dead'}`
       }
     }
 
@@ -37,7 +37,7 @@ class GameUI {
   updateMap() {
     const updateCell = (cellData, i, j) => {
       const cell = document.getElementById(`${i}-${j}`)
-      cell.className = `cell ${cellData ? 'alive' : 'dead'}`
+      cell.className = `cell ${cellData ? `alive-${cellData}` : 'dead'}`
     }
 
     const updateRow = (rowData, i) => {
