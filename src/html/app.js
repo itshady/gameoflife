@@ -1,9 +1,7 @@
 import GameControl from '../game/GameControl.js'
-import StorageUI from './storageUI.js'
-import LexiconUI from './lexiconUI.js'
-import GameUI from './gameUI.js'
-
-const MINSPEED = 2000
+import StorageUI from './components/storageUI.js'
+import LexiconUI from './components/lexiconUI.js'
+import GameUI from './components/gameUI.js'
 
 class HtmlApp {
   constructor() {

@@ -1,3 +1,5 @@
+const MINSPEED = 2000
+
 class GameUI {
   constructor(gameControl) {
     this.gameControl = gameControl
