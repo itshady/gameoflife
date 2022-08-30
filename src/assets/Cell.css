@@ -1,17 +1,134 @@
-* {
+@font-face {
+  font-family: "HandelGothic";
+  src: url("fonts/a97dc52b4b2059e5f04907cb7492af0b.eot"); /* IE9*/
+  src: url("fonts/a97dc52b4b2059e5f04907cb7492af0b.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */
+  url("fonts/a97dc52b4b2059e5f04907cb7492af0b.woff") format("woff"), /* chrome、firefox */
+  url("fonts/a97dc52b4b2059e5f04907cb7492af0b.ttf") format("truetype"), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url("fonts/a97dc52b4b2059e5f04907cb7492af0b.svg#Handel Gothic") format("svg"); /* iOS 4.1- */
+  font-weight: bold;
+  font-display: swap;
+}
+
+:root {
+  --primary: #2a4e97;
+  --light: #8c8c8c;
+  --dark-primary: #1b3262;
+  --bg-header: #4285d7;
+  --bg-primary: #646464;
+  --bg-secondary: #444;
+  --cell-dead: #7e7e7e;
+  --cell-alive-1: #ffff00;
+  --cell-alive-2: green;
+}
+
+html {
+  accent-color: var(--primary);
+}
+
+body {
   margin: 0;
-  gap: 0;
+  background-color: var(--bg-primary);
+  overflow-x: hidden;
+}
+
+.app {
+  height: 100vh;
+}
+
+.header {
+  background-color: var(--bg-header);
+  color: var(--dark-primary);
+  font-size: 50px;
+  font-family: HandelGothic, Trebuchet MS, sans-serif;
+}
+
+.map-grid {
+  background-color: var(--bg-secondary);
+}
+
+.wrapper {
+  position: relative;
 }
 
 .cell {
-  width:10px;
-  height:10px;
+  width:12px;
+  height:12px;
+  cursor: pointer;
 }
 
-.alive{
-  background-color: green;
+.alive-1 {
+  background-color: var(--cell-alive-1);
+}
+
+.alive-2 {
+  background-color: var(--cell-alive-2);
 }
 
 .dead {
-  background-color: red;
+  background-color: var(--cell-dead);
+}
+
+#grid {
+  border-collapse: separate;
+  background-color: var(--light);
+}
+
+.btn {
+  font-family: HandelGothic, Trebuchet MS, sans-serif;
+}
+
+.btn-main {
+  width: 150px;
+  font-size: 1.2rem;
+}
+
+.overlay {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  height: fit-content;
+  background-color: var(--bg-primary);
+}
+
+input::-webkit-slider-thumb {
+  background-color: var(--primary)
+}
+
+.speed-range {
+  color: var(--primary);
+}
+
+.modal-content {
+  background-color: var(--bg-secondary);
+  color: white; 
+}
+
+.modal-content > * {
+  border: none;
+}
+
+.lexicon-item {
+  background-color: var(--bg-primary);
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+img {
+  cursor: pointer;
+}
+
+#load-pattern {
+  width: fit-content;
+  height: fit-content;
+}
+
+#name {
+  width: fit-content;
+  height: fit-content;
+}
+
+.game-over {
+  background-color: red !important;
 }
