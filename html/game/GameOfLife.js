@@ -60,20 +60,20 @@ class GameOfLife {
     const nextMap = this.createMapShell()
     for (let i = 0; i < this.height; i += 1) {
       for (let j = 0; j < this.width; j += 1) {
-        if(map2[i][j] != 0 && map1[i][j] == 0){ //no conflict
-          nextMap[i][j] = map2[i][j]
+        if(map2.data[i][j] != 0 && map1.data[i][j] == 0){ //no conflict
+          nextMap[i][j] = map2.data[i][j]
         }
-        else if(map1[i][j] != 0 && map2[i][j] == 0){ //no conflict
-          nextMap[i][j] = map1[i][j]
+        else if(map1.data[i][j] != 0 && map2.data[i][j] == 0){ //no conflict
+          nextMap[i][j] = map1.data[i][j]
         }
-        else if(map2[i][j] != 0 && map1[i][j] != 0){ //conflict
-          const map1FriendlyCount = this.countFriendlyNeighbours(1, i, j, map1) 
-          const map2FriendlyCount = this.countFriendlyNeighbours(2, i, j, map2) 
+        else if(map2.data[i][j] != 0 && map1.data[i][j] != 0){ //conflict
+          const map1FriendlyCount = map1.countFriendlyNeighbours(i, j) 
+          const map2FriendlyCount = map2.countFriendlyNeighbours(i, j) 
           if(map1FriendlyCount > map2FriendlyCount){ //1 wins
-            nextMap[i][j] = map1[i][j]
+            nextMap[i][j] = map1.data[i][j]
           }
           else if(map1FriendlyCount < map2FriendlyCount){ //2 wins
-            nextMap[i][j] = map2[i][j]
+            nextMap[i][j] = map2.data[i][j]
           }
           // else tied or both dead
         }
@@ -83,51 +83,20 @@ class GameOfLife {
   }
 
   nextGenForSpecies(speciesId) {
-    const tempMap = this.createMapShell()
+    const nextGenForSpeciesMap = this.createMapShell()
+    const tempMap = new Map(JSON.parse(JSON.stringify(this.mapData)), speciesId)
     for (let i = 0; i < this.height; i += 1) {
       for (let j = 0; j < this.width; j += 1) {
-        if (this.isFriendly(speciesId, i, j, this.mapData) || this.isDead(i, j, this.mapData)) {
-          const before = this.mapData[i][j]
-          tempMap[i][j] = Rules.for(speciesId, this.countFriendlyNeighbours(speciesId, i, j, this.mapData), this.mapData[i][j])
+        if (tempMap.isFriendly(i, j) || tempMap.isDead(i, j)) {
+          nextGenForSpeciesMap[i][j] = Rules.for(tempMap.id, tempMap.countFriendlyNeighbours(i, j), tempMap.data[i][j])
         }
       }
     }
-    return tempMap
+    return new Map(nextGenForSpeciesMap, speciesId)
   }
 
   createMapShell() {
     return Array.from(Array(this.height), () => Array(this.width).fill(0))
-  }
-
-  isDead(x, y, map) {
-    return map[x][y] == 0
-  }
-
-  isFriendly(speciesId, x, y, map) {
-    return map[x][y] == speciesId
-  }
-
-  countFriendlyNeighbours(speciesId, x, y, map) {
-    const deltas = [
-      { x: -1, y: -1 }, { x: 0, y: -1 }, { x: 1, y: -1 },
-      { x: -1, y: 0 }, { x: 1, y: 0 },
-      { x: -1, y: 1 }, { x: 0, y: 1 }, { x: 1, y: 1 },
-    ]
-
-    const inRange = (rowIndex, colIndex) => rowIndex >= 0 && colIndex >= 0
-      && rowIndex < this.height && colIndex < this.width
-
-    return deltas.reduce((sum, delta) => {
-      const rowIndex = x + delta.x
-      const colIndex = y + delta.y
-
-      if (inRange(rowIndex, colIndex)) {
-        const hasFriendlyNeighbour = this.isFriendly(speciesId, x + delta.x, y + delta.y, map) ? 1 : 0
-        return sum + hasFriendlyNeighbour
-      } else { 
-        return sum
-      }
-    }, 0)
   }
 }
 
