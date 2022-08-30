@@ -1,105 +1,39 @@
-/* eslint-disable no-console */
-/* eslint-disable class-methods-use-this */
 import GameControl from '../game/GameControl.js'
+import StorageUI from './components/storageUI.js'
+import LexiconUI from './components/lexiconUI.js'
+import GameUI from './components/gameUI.js'
 
 class HtmlApp {
   constructor() {
+    this.gameUI = new GameUI()
     this.gameControl = this.initializeGameControl()
+    this.gameUI.gameControl = this.gameControl
+    this.storageUI = new StorageUI(this.gameControl)
+    this.storageUI.onPatternLoad = (map) => {
+      this.gameUI.handleReset(map)
+    }
+    this.lexiconUI = new LexiconUI()
+    this.lexiconUI.onSelect = (map) => {
+      this.gameUI.handleReset(map)
+    }
   }
 
   onLoad() {
-    this.initMap()
-  }
-
-  initMap() {
-    const table = document.getElementById('grid').getElementsByTagName('tbody')[0]
-    table.innerHTML = ''
-
-    const loadCell = (newRow, cellData, i, j) => {
-      const newCell = newRow.insertCell(j)
-      newCell.id = `${i}-${j}`
-      newCell.className = `cell ${cellData ? 'alive' : 'dead'}`
-      newCell.onclick = () => {
-        this.gameControl.mapData[i][j] = this.gameControl.mapData[i][j] ? 0 : 1
-        newCell.className = `cell ${this.gameControl.mapData[i][j] ? 'alive' : 'dead'}`
-      }
-    }
-
-    const loadRow = (rowData, i) => {
-      const newRow = table.insertRow(i)
-      newRow.id = i
-      rowData.forEach((cellData, j) => {
-        loadCell(newRow, cellData, i, j)
-      })
-    }
-
-    this.gameControl.mapData.forEach((rowData, i) => {
-      loadRow(rowData, i)
-    })
-  }
-
-  updateMap() {
-    // const table = document.getElementById('grid').getElementsByTagName('tbody')[0]
-
-    const updateCell = (cellData, i, j) => {
-      const cell = document.getElementById(`${i}-${j}`)
-      cell.className = `cell ${cellData ? 'alive' : 'dead'}`
-    }
-
-    const updateRow = (rowData, i) => {
-      // const row = table.querySelector(`#${i}`)
-      rowData.forEach((cellData, j) => {
-        updateCell(cellData, i, j)
-      })
-    }
-
-    this.gameControl.mapData.forEach((rowData, i) => {
-      updateRow(rowData, i)
-    })
-  }
-
-  renderGenerationCount() {
-    const generationCount = document.getElementById('generation-count')
-    generationCount.innerHTML = this.gameControl.generationCount
-  }
-
-  onNext() {
-    this.gameControl.nextGeneration()
-    this.updateMap()
-    this.renderGenerationCount()
-  }
-
-  onStart() {
-    this.gameControl.start(50)
-  }
-
-  onStop() {
-    this.gameControl.stop()
-  }
-
-  onReset() {
-    this.gameControl.stop()
-    this.gameControl.reset()
-    this.setInitialGameMap(this.gameControl)
-    this.updateMap()
-  }
-
-  onGameStateChange() {}
-
-  onGameLoop() {
-    this.updateMap()
-    this.renderGenerationCount()
+    this.gameUI.initMap()
+    this.lexiconUI.renderLexicon()
+    this.storageUI.renderPatterns()
   }
 
   initializeGameControl() {
-    const gameInit = new GameControl(11, 11, this.onGameStateChange.bind(this), this.onGameStateChange.bind(this), this.onGameLoop.bind(this))
-    this.setInitialGameMap(gameInit)
+    const map = this.setInitialGameMap()
+    const gameInit = new GameControl(map, ()=>{}, ()=>{}, this.gameUI.onGameLoop.bind(this.gameUI), this.gameUI.onGameLoop.bind(this.gameUI), this.gameUI.onGameOver.bind(this.gameUI))
     return gameInit
   }
 
-  setInitialGameMap(gameInit) {
-    // eslint-disable-next-line no-param-reassign, no-multi-assign
-    gameInit.mapData[3][3] = gameInit.mapData[2][3] = gameInit.mapData[3][2] = gameInit.mapData[2][1] = gameInit.mapData[1][3] = gameInit.mapData[0][0] = 1
+  setInitialGameMap() {
+    const map = Array.from(Array(11), _ => Array(20).fill(0))
+    map[3][3] = map[2][3] = map[3][2] = map[2][1] = map[1][3] = 1
+    return map
   }
 }
 

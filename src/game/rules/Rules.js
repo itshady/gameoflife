@@ -20,4 +20,8 @@ class Rules {
   }
 }
 
+//Rules for conflict
+// whichever species has the most species neighbours wins
+// if ties, cell is dead
+
 export default Rules
