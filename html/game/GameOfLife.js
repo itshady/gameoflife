@@ -25,9 +25,6 @@ class GameOfLife {
     this.history.push(this.mapData)
     const species1Map = this.nextGenForSpecies(1)
     const species2Map = this.nextGenForSpecies(2)
-
-    //resolve conflicts
-    // this.mapData = species2Map
     this.mapData = this.mergeMaps(species1Map, species2Map)
   }
 
@@ -42,9 +39,8 @@ class GameOfLife {
           nextMap[i][j] = map1[i][j]
         }
         else if(map2[i][j] != 0 && map1[i][j] != 0){ //conflict
-          const map1FriendlyCount = this.countFriendlyNeighbours(1, i, j) 
-          const map2FriendlyCount = this.countFriendlyNeighbours(1, i, j) 
-          
+          const map1FriendlyCount = this.countFriendlyNeighbours(1, i, j, map1) 
+          const map2FriendlyCount = this.countFriendlyNeighbours(2, i, j, map2) 
           if(map1FriendlyCount > map2FriendlyCount){ //1 wins
             nextMap[i][j] = map1[i][j]
           }
@@ -62,9 +58,9 @@ class GameOfLife {
     const tempMap = this.createMapShell()
     for (let i = 0; i < this.height; i += 1) {
       for (let j = 0; j < this.width; j += 1) {
-        if (this.isFriendly(speciesId, i, j) || this.isDead(i, j)) {
+        if (this.isFriendly(speciesId, i, j, this.mapData) || this.isDead(i, j, this.mapData)) {
           const before = this.mapData[i][j]
-          tempMap[i][j] = Rules.for(speciesId, this.countFriendlyNeighbours(speciesId, i, j), this.mapData[i][j])
+          tempMap[i][j] = Rules.for(speciesId, this.countFriendlyNeighbours(speciesId, i, j, this.mapData), this.mapData[i][j])
         }
       }
     }
@@ -75,15 +71,15 @@ class GameOfLife {
     return Array.from(Array(this.height), () => Array(this.width).fill(0))
   }
 
-  isDead(x, y) {
-    return this.mapData[x][y] == 0
+  isDead(x, y, map) {
+    return map[x][y] == 0
   }
 
-  isFriendly(speciesId, x, y) {
-    return this.mapData[x][y] == speciesId
+  isFriendly(speciesId, x, y, map) {
+    return map[x][y] == speciesId
   }
 
-  countFriendlyNeighbours(speciesId, x, y) {
+  countFriendlyNeighbours(speciesId, x, y, map) {
     const deltas = [
       { x: -1, y: -1 }, { x: 0, y: -1 }, { x: 1, y: -1 },
       { x: -1, y: 0 }, { x: 1, y: 0 },
@@ -98,7 +94,7 @@ class GameOfLife {
       const colIndex = y + delta.y
 
       if (inRange(rowIndex, colIndex)) {
-        const hasFriendlyNeighbour = this.isFriendly(speciesId, x + delta.x, y + delta.y) ? 1 : 0
+        const hasFriendlyNeighbour = this.isFriendly(speciesId, x + delta.x, y + delta.y, map) ? 1 : 0
         return sum + hasFriendlyNeighbour
       } else { 
         return sum
