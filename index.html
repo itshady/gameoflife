@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Conway's Game Of Life</title>
+
+  <link rel="icon" type="image/x-icon" href="./assets/favicon.png">
+
+  <script type="module" src="./app.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/4799d945bd.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="./assets/Cell.css">
+  <link rel="stylesheet" href="./assets/scrollbar.css">
+</head>
+<body onload="window.app.onLoad()">
+  <div class="app d-flex flex-column justify-content-start align-items-center">
+    <div class="header h1 w-100 p-3 mb-0 fw-bold">Game Of Life</div>
+    <div id="game-over" class="map-grid d-flex flex-row justify-content-center w-100 p-3">
+      <div class="wrapper">
+      <table id="grid">
+        <tbody>
+          
+        </tbody>
+      </table>
+      <div class="card d-flex flex-column p-3 overlay">
+        <div class="d-flex flex-row align-items-center justify-content-start my-2">
+          <i class="fa-solid fa-gauge-high me-2"></i>
+          <input type="range" class="speed-range" id="speed" name="speed" onchange="window.app.gameUI.onSpeedChange()" min="0" max="3000">
+        </div>
+        <div class="d-flex flex-row align-items-center justify-content-start my-2">
+          <i class="fa-solid fa-globe me-2"></i>
+          <p id="generation-count" class="h5 m-0">0</p>  
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="d-flex flex-column justify-content-end align-items-center mb-3 h-100">
+      <div class="d-flex flex-row flex-wrap justify-content-center mt-3 w-100">
+        <button id="btn-start" type="button" class="btn btn-main btn-success text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.gameUI.onStart()">Start</button>
+        <button id="btn-stop" type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.gameUI.onStop()">Stop</button>
+        <button id="btn-back" type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.gameUI.onBack()">« Back</button>
+        <button id="btn-next" type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.gameUI.onNext()">Next »</button>
+        <button id="btn-reset" type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.gameUI.onReset()">Reset</button>
+        <button id="btn-clear" type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.gameUI.onClear()">Clear</button>
+      </div>
+
+      <div class="d-flex flex-row flex-wrap justify-content-center align-items-center mt-3 w-100">
+        <!-- Button trigger Lexicon -->
+        <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" data-bs-toggle="modal" data-bs-target="#lexicon-modal">
+          Lexicon
+        </button>
+        <div class="d-flex flex-row flex-nowrap align-items-center">
+          <button type="button" class="btn btn-main btn-success text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.storageUI.savePattern()">Save</button>
+          <input type="text" class="form-control" id="name" placeholder="Pattern Name...">
+        </div>
+        <div class="d-flex flex-row flex-nowrap align-items-center">
+          <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.storageUI.loadPattern()">Load Save</button>
+          <select class="form-select" id="load-pattern" aria-label="Default select example">
+
+          </select>
+        </div>
+        <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.storageUI.clearPattern()">Delete</button>
+        <button type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.storageUI.clearPatterns()">Clear Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Lexicon -->
+  <div class="modal fade" id="lexicon-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="lexicon">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
