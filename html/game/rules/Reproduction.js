@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 class Reproduction {
-  static newCellData() {
-    return 1
+  static newCellData(speciesId) {
+    return speciesId
   }
 }
 
