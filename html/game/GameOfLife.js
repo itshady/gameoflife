@@ -32,27 +32,47 @@ class GameOfLife {
   }
 
   mergeMaps(map1, map2) {
+    const nextMap = this.createMapShell()
     for (let i = 0; i < this.height; i += 1) {
       for (let j = 0; j < this.width; j += 1) {
-        if(map2[i][j] != 0)
-          map1[i][j] = map2[i][j]     
+        if(map2[i][j] != 0 && map1[i][j] == 0){ //no conflict
+          nextMap[i][j] = map2[i][j]
+        }
+        else if(map1[i][j] != 0 && map2[i][j] == 0){ //no conflict
+          nextMap[i][j] = map1[i][j]
+        }
+        else if(map2[i][j] != 0 && map1[i][j] != 0){ //conflict
+          const map1FriendlyCount = this.countFriendlyNeighbours(1, i, j) 
+          const map2FriendlyCount = this.countFriendlyNeighbours(1, i, j) 
+          
+          if(map1FriendlyCount > map2FriendlyCount){ //1 wins
+            nextMap[i][j] = map1[i][j]
+          }
+          else if(map1FriendlyCount < map2FriendlyCount){ //2 wins
+            nextMap[i][j] = map2[i][j]
+          }
+          // else tied or both dead
+        }
       }
     }
-    return map1
+    return nextMap
   }
 
   nextGenForSpecies(speciesId) {
-    const tempMap = Array.from(Array(this.height), () => Array(this.width).fill(0))
+    const tempMap = this.createMapShell()
     for (let i = 0; i < this.height; i += 1) {
       for (let j = 0; j < this.width; j += 1) {
         if (this.isFriendly(speciesId, i, j) || this.isDead(i, j)) {
           const before = this.mapData[i][j]
           tempMap[i][j] = Rules.for(speciesId, this.countFriendlyNeighbours(speciesId, i, j), this.mapData[i][j])
-          console.log(`${before} = ${this.countFriendlyNeighbours(speciesId, i, j)} => ${tempMap[i][j]}`)
         }
       }
     }
     return tempMap
+  }
+
+  createMapShell() {
+    return Array.from(Array(this.height), () => Array(this.width).fill(0))
   }
 
   isDead(x, y) {
