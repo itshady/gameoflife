@@ -10,12 +10,12 @@ class Rules {
   // Any live cell with more than three live neighbours dies, as if by overpopulation.
   // Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
 
-  static for(neighbourCount, cell) {
+  static for(speciesId, neighbourCount, cell) {
     let newData = cell
-    if (cell === 1 && neighbourCount < 2) newData = UnderPopulation.newCellData()
-    else if (cell === 1 && neighbourCount < 4) newData = Survive.newCellData()
-    else if (cell === 1) newData = OverPopulation.newCellData()
-    else if (cell === 0 && neighbourCount === 3) newData = Reproduction.newCellData()
+    if (cell === speciesId && neighbourCount < 2) newData = UnderPopulation.newCellData()
+    else if (cell === speciesId && neighbourCount < 4) newData = Survive.newCellData(speciesId)
+    else if (cell === speciesId) newData = OverPopulation.newCellData()
+    else if (cell === 0 && neighbourCount === 3) newData = Reproduction.newCellData(speciesId)
     return newData
   }
 }

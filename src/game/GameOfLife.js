@@ -24,10 +24,21 @@ class GameOfLife {
   nextGeneration() {
     this.history.push(this.mapData)
     const species1Map = this.nextGenForSpecies(1)
-    //const species2Map = this.nextGenForSpecies(2)
+    const species2Map = this.nextGenForSpecies(2)
 
     //resolve conflicts
-    this.mapData = species1Map
+    // this.mapData = species2Map
+    this.mapData = this.mergeMaps(species1Map, species2Map)
+  }
+
+  mergeMaps(map1, map2) {
+    for (let i = 0; i < this.height; i += 1) {
+      for (let j = 0; j < this.width; j += 1) {
+        if(map2[i][j] != 0)
+          map1[i][j] = map2[i][j]     
+      }
+    }
+    return map1
   }
 
   nextGenForSpecies(speciesId) {
@@ -35,7 +46,9 @@ class GameOfLife {
     for (let i = 0; i < this.height; i += 1) {
       for (let j = 0; j < this.width; j += 1) {
         if (this.isFriendly(speciesId, i, j) || this.isDead(i, j)) {
-          tempMap[i][j] = Rules.for(this.countFriendlyNeighbours(speciesId, i, j), this.mapData[i][j])
+          const before = this.mapData[i][j]
+          tempMap[i][j] = Rules.for(speciesId, this.countFriendlyNeighbours(speciesId, i, j), this.mapData[i][j])
+          console.log(`${before} = ${this.countFriendlyNeighbours(speciesId, i, j)} => ${tempMap[i][j]}`)
         }
       }
     }
