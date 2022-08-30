@@ -1,31 +1,59 @@
 import Rules from './rules/Rules.js'
+import Map from './map.js'
 
 class GameOfLife {
   constructor(map) {
     this.width = map[0].length
     this.height = map.length
     this.history = []
-    this.mapData = map
+    this.currentGenMap = new Map(map, 0)
   }
 
   get mapData() {
-    return this._mapData
+    return this.currentGenMap.data
   }
 
   set mapData(newMapData) {
-    this._mapData = newMapData
+    this.currentGenMap.data = newMapData
   }
 
   get isGameOver() {
     const lastGen = this.history[this.history.length - 1]
-    return JSON.stringify(lastGen) == JSON.stringify(this.mapData)
+    const twoGensAgo = this.history[this.history.length - 2]
+    const threeGensAgo = this.history[this.history.length - 3]
+    // if last gen == current, we done
+    // else if this gen == 2 ago and last gen == 3 ago, then we flickering... done.
+    return JSON.stringify(lastGen) == JSON.stringify(this.mapData) || 
+    (JSON.stringify(twoGensAgo) == JSON.stringify(this.mapData) && JSON.stringify(threeGensAgo) == JSON.stringify(lastGen))
   }
 
   nextGeneration() {
     this.history.push(this.mapData)
     const species1Map = this.nextGenForSpecies(1)
     const species2Map = this.nextGenForSpecies(2)
-    this.mapData = this.mergeMaps(species1Map, species2Map)
+    const mapDataFixed = this.mergeMaps(species1Map, species2Map)
+    //const mapDataArray = this.mergeMapsDynamic([species1Map, species2Map])
+
+    //assertMapsMatch(this.mapDataFixed)
+
+    this.mapData = mapDataFixed
+  }
+
+  mergeMapsDynamic(maps) {
+    const nextMap = this.createMapShell()
+    for (let i = 0; i < this.height; i += 1) {
+      for (let j = 0; j < this.width; j += 1) {
+        //if all dead - no action
+        
+        //if 1 alive - he wins
+
+        //if > 1 alive{
+          //if only one has max friendlies - he wins
+          //if > 1 has max friendlies - tie, dead cell
+
+        //}
+      }
+    }
   }
 
   mergeMaps(map1, map2) {
