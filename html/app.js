@@ -1,4 +1,4 @@
-import GameControl from '../game/GameControl.js'
+import GameControl from './game/GameControl.js'
 import StorageUI from './components/storageUI.js'
 import LexiconUI from './components/lexiconUI.js'
 import GameUI from './components/gameUI.js'
