@@ -60,20 +60,20 @@ class GameOfLife {
     const nextMap = this.createMapShell()
     for (let i = 0; i < this.height; i += 1) {
       for (let j = 0; j < this.width; j += 1) {
-        if(map2.data[i][j] != 0 && map1.data[i][j] == 0){ //no conflict
-          nextMap[i][j] = map2.data[i][j]
+        if(map2.isAlive(i, j) && map1.isDead(i, j)){ //no conflict
+          nextMap[i][j] = map2.getCell(i, j)
         }
-        else if(map1.data[i][j] != 0 && map2.data[i][j] == 0){ //no conflict
-          nextMap[i][j] = map1.data[i][j]
+        else if(map1.isAlive(i, j) && map2.isDead(i, j)){ //no conflict
+          nextMap[i][j] = map1.getCell(i, j)
         }
-        else if(map2.data[i][j] != 0 && map1.data[i][j] != 0){ //conflict
+        else if(map2.isAlive(i, j) && map1.isAlive(i, j)){ //conflict
           const map1FriendlyCount = map1.countFriendlyNeighbours(i, j) 
           const map2FriendlyCount = map2.countFriendlyNeighbours(i, j) 
           if(map1FriendlyCount > map2FriendlyCount){ //1 wins
-            nextMap[i][j] = map1.data[i][j]
+            nextMap[i][j] = map1.getCell(i, j)
           }
           else if(map1FriendlyCount < map2FriendlyCount){ //2 wins
-            nextMap[i][j] = map2.data[i][j]
+            nextMap[i][j] = map2.getCell(i, j)
           }
           // else tied or both dead
         }
@@ -88,7 +88,7 @@ class GameOfLife {
     for (let i = 0; i < this.height; i += 1) {
       for (let j = 0; j < this.width; j += 1) {
         if (tempMap.isFriendly(i, j) || tempMap.isDead(i, j)) {
-          nextGenForSpeciesMap[i][j] = Rules.for(tempMap.id, tempMap.countFriendlyNeighbours(i, j), tempMap.data[i][j])
+          nextGenForSpeciesMap[i][j] = Rules.for(tempMap.id, tempMap.countFriendlyNeighbours(i, j), tempMap.getCell(i, j))
         }
       }
     }

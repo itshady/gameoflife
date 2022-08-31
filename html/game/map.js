@@ -18,8 +18,20 @@ class Map {
     return this._id
   }
 
+  getCell(x, y) {
+    return this.data[x][y]
+  }
+
+  setCell(x, y, newValue) {
+    this.data[x][y] = newValue
+  }
+
   isDead(x, y) {
     return this.data[x][y] == 0
+  }
+
+  isAlive(x, y) {
+    return this.data[x][y] != 0
   }
 
   isFriendly(x, y) {
