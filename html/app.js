@@ -22,6 +22,7 @@ class HtmlApp {
     this.gameUI.initMap()
     this.lexiconUI.renderLexicon()
     this.storageUI.renderPatterns()
+    window.onresize = () => this.gameUI.initMap()
   }
 
   initializeGameControl() {
@@ -31,11 +32,13 @@ class HtmlApp {
   }
 
   setInitialGameMap() {
-    const map = Array.from(Array(30), _ => Array(80).fill(0))
-    map[3][3] = map[2][3] = map[3][2] = map[2][1] = map[1][3] = 1
-    map[10][10] = map[11][11] = map[8][11] = map[9][8] = map[8][10] = map[9][10] = 2
+    const map = Array.from(Array(200), _ => Array(200).fill(0))
+    const shiftY = 10
+    const shiftX = 30
+    map[3+shiftY][3+shiftX] = map[2+shiftY][3+shiftX] = map[3+shiftY][2+shiftX] = map[2+shiftY][1+shiftX] = map[1+shiftY][3+shiftX] = 1
+    map[10+shiftY][10+shiftX] = map[11+shiftY][11+shiftX] = map[8+shiftY][11+shiftX] = map[9+shiftY][8+shiftX] = map[8+shiftY][10+shiftX] = map[9+shiftY][10+shiftX] = 2
 
-    map[20][20] = map[21][21] = map[20][21] = map[21][20] = 2
+    map[20+shiftY][20+shiftX] = map[21+shiftY][21+shiftX] = map[20+shiftY][21+shiftX] = map[21+shiftY][20+shiftX] = 2
     return map
   }
 }

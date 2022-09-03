@@ -11,30 +11,28 @@ class GameUI {
     const table = document.getElementById('grid').getElementsByTagName('tbody')[0]
     table.innerHTML = ''
 
-    const loadCell = (newRow, cellData, i, j) => {
-      const newCell = newRow.insertCell(j)
-      newCell.id = `${i}-${j}`
-      newCell.className = `cell ${cellData ? `alive-${cellData}` : 'dead'}`
-      newCell.onclick = (e) => {
-        let speciesId = e.shiftKey ? 2 : 1
-
-        const newValue = this.gameControl.mapData[i][j] ? 0 : speciesId
-        this.gameControl.mapData[i][j] = newValue
-        newCell.className = `cell ${this.gameControl.mapData[i][j] ? `alive-${newValue}` : 'dead'}`
-      }
-    }
-
-    const loadRow = (rowData, i) => {
+    const gameHeight = this.gameControl.gameEngine.height
+    const gameWidth = this.gameControl.gameEngine.width
+    this.width = Math.min(Math.floor(window.innerWidth / 13) - 4, gameWidth)
+    this.height = Math.min(Math.floor(window.innerHeight / 13) - 20, gameHeight)
+    console.log(this.width) 
+    console.log(this.height)
+    for (let i=0; i < this.height; i+=1) {
       const newRow = table.insertRow(i)
       newRow.id = i
-      rowData.forEach((cellData, j) => {
-        loadCell(newRow, cellData, i, j)
-      })
-    }
+      for (let j=0; j < this.width; j+=1) {
+        const newCell = newRow.insertCell(j)
+        newCell.id = `${i}-${j}`
+        newCell.className = `cell ${this.gameControl.mapData[i][j] ? `alive-${this.gameControl.mapData[i][j]}` : 'dead'}`
+        newCell.onclick = (e) => {
+          let speciesId = e.shiftKey ? 2 : 1
 
-    this.gameControl.mapData.forEach((rowData, i) => {
-      loadRow(rowData, i)
-    })
+          const newValue = this.gameControl.mapData[i][j] ? 0 : speciesId
+          this.gameControl.mapData[i][j] = newValue
+          newCell.className = `cell ${this.gameControl.mapData[i][j] ? `alive-${newValue}` : 'dead'}`
+        }
+      }  
+    }
   }
 
   updateMap() {
@@ -43,15 +41,11 @@ class GameUI {
       cell.className = `cell ${cellData ? `alive-${cellData}` : 'dead'}`
     }
 
-    const updateRow = (rowData, i) => {
-      rowData.forEach((cellData, j) => {
-        updateCell(cellData, i, j)
-      })
+    for (let i=0; i < this.height; i+=1) {
+      for (let j=0; j < this.width; j+=1) {
+        updateCell(this.gameControl.mapData[i][j],i,j)
+      }  
     }
-
-    this.gameControl.mapData.forEach((rowData, i) => {
-      updateRow(rowData, i)
-    })
   }
 
   onGameOver() {
