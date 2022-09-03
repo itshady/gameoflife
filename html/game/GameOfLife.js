@@ -23,8 +23,30 @@ class GameOfLife {
     const threeGensAgo = this.history[this.history.length - 3]
     // if last gen == current, we done
     // else if this gen == 2 ago and last gen == 3 ago, then we flickering... done.
-    return JSON.stringify(lastGen) == JSON.stringify(this.mapData) || 
-    (JSON.stringify(twoGensAgo) == JSON.stringify(this.mapData) && JSON.stringify(threeGensAgo) == JSON.stringify(lastGen))
+    if (JSON.stringify(lastGen) == JSON.stringify(this.mapData) || 
+    (JSON.stringify(twoGensAgo) == JSON.stringify(this.mapData) && JSON.stringify(threeGensAgo) == JSON.stringify(lastGen))) {
+
+      const toFindDuplicates = (arr) => {
+        return arr.filter((item, index) => arr.indexOf(item) !== index)
+      }
+
+      const arr = this.countLivingCells()
+      const max = Math.max(...arr);
+      const index = arr.indexOf(max);
+      const maxDuplicate = Math.max(...toFindDuplicates(arr))
+      if (maxDuplicate == max) return -1
+      return index
+    }
+  }
+
+  countLivingCells() {
+    const arr = [0,0,0,0,0,0]
+    this.currentGenMap.data.forEach((rowData, i) => {
+      rowData.forEach((cellData, j) => {
+        arr[cellData] += cellData ? 1 : 0 
+      })
+    })
+    return arr
   }
 
   nextGeneration() {

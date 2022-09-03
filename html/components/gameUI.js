@@ -54,7 +54,8 @@ class GameUI {
     })
   }
 
-  onGameOver() {
+  onGameOver(winningSpeciesId) {
+    this.winningSpeciesId = winningSpeciesId
     this.addGameOverUI()
   }
 
@@ -90,14 +91,14 @@ class GameUI {
   }
 
   removeGameOverUI() {
-    document.getElementById('game-over').classList.remove("game-over")
+    document.getElementById('game-over').classList.remove(`alive-${this.winningSpeciesId}`)
     document.getElementById('btn-start').classList.remove("disabled")
     document.getElementById('btn-stop').classList.remove("disabled")
     document.getElementById('btn-next').classList.remove("disabled")
   }
 
   addGameOverUI() {
-    document.getElementById('game-over').classList.add("game-over")
+    document.getElementById('game-over').classList.add(`alive-${this.winningSpeciesId}`)
     document.getElementById('btn-start').classList.add("disabled")
     document.getElementById('btn-stop').classList.add("disabled")
     document.getElementById('btn-next').classList.add("disabled")

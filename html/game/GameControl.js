@@ -47,7 +47,7 @@ class GameControl {
     this.onGameNext()
     if (this.gameEngine.isGameOver) {
       this.stop()
-      this.onGameOver()
+      this.onGameOver(this.gameEngine.isGameOver)
     }
   }
 
