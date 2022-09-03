@@ -6,6 +6,7 @@ class GameUI {
     this.intervalTime = 1000
     this.startWidth = 100
     this.startHeight = 100
+    this.posX = this.posY = 'undefined'
   }
 
   handleKeyDown(e) {
@@ -13,27 +14,45 @@ class GameUI {
     if (e.keyCode == '38') {
       // up arrow
       if (this.startHeight > 0) this.startHeight -= 1
+      e.preventDefault()
     }
     else if (e.keyCode == '40') {
       // down arrow
       if (this.startHeight < this.gameHeight - this.height) this.startHeight += 1
+      e.preventDefault()
     }
     else if (e.keyCode == '37') {
       // left arrow
       if (this.startWidth > 0) this.startWidth -= 1
-      
+      e.preventDefault()
     }
     else if (e.keyCode == '39') {
       // right arrow
       if (this.startWidth < this.gameWidth - this.width) this.startWidth += 1
+      e.preventDefault()
     }
-    e.preventDefault()
     this.initMap()
+  }
+
+  setupScroll(element) {
+    element.onmousedown = (e) => {
+      this.posX = e.clientX
+      this.posY = e.clientY
+    }
+    document.onmouseup = (e) => {
+      if (this.posX != 'undefined' && this.posY != 'undefined') {
+      this.startWidth = Math.floor(this.startWidth - ((e.clientX - this.posX) / 15))
+      this.startHeight = Math.floor(this.startHeight - ((e.clientY - this.posY) / 15))
+      this.initMap()
+      }
+      this.posX = this.posY = 'undefined'
+    }
   }
 
   initMap() {
     this.saveStartMap(this.gameControl.mapData)
     const table = document.getElementById('grid').getElementsByTagName('tbody')[0]
+    this.setupScroll(table)
     table.innerHTML = ''
 
     this.width = Math.min(Math.floor(window.innerWidth / 13) - 4, this.gameWidth)
