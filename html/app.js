@@ -8,6 +8,8 @@ class HtmlApp {
     this.gameUI = new GameUI()
     this.gameControl = this.initializeGameControl()
     this.gameUI.gameControl = this.gameControl
+    this.gameUI.gameHeight = this.gameControl.gameEngine.height
+    this.gameUI.gameWidth = this.gameControl.gameEngine.width
     this.storageUI = new StorageUI(this.gameControl)
     this.storageUI.onPatternLoad = (map) => {
       this.gameUI.handleReset(map)
@@ -23,6 +25,7 @@ class HtmlApp {
     this.lexiconUI.renderLexicon()
     this.storageUI.renderPatterns()
     window.onresize = () => this.gameUI.initMap()
+    document.onkeydown = (e) => this.gameUI.handleKeyDown(e)
   }
 
   initializeGameControl() {
@@ -32,9 +35,9 @@ class HtmlApp {
   }
 
   setInitialGameMap() {
-    const map = Array.from(Array(200), _ => Array(200).fill(0))
-    const shiftY = 10
-    const shiftX = 30
+    const map = Array.from(Array(300), _ => Array(300).fill(0))
+    const shiftY = 100
+    const shiftX = 100
     map[3+shiftY][3+shiftX] = map[2+shiftY][3+shiftX] = map[3+shiftY][2+shiftX] = map[2+shiftY][1+shiftX] = map[1+shiftY][3+shiftX] = 1
     map[10+shiftY][10+shiftX] = map[11+shiftY][11+shiftX] = map[8+shiftY][11+shiftX] = map[9+shiftY][8+shiftX] = map[8+shiftY][10+shiftX] = map[9+shiftY][10+shiftX] = 2
 

@@ -4,6 +4,31 @@ class GameUI {
   constructor(gameControl) {
     this.gameControl = gameControl
     this.intervalTime = 1000
+    this.startWidth = 100
+    this.startHeight = 100
+  }
+
+  handleKeyDown(e) {
+    e = e || window.event;
+    if (e.keyCode == '38') {
+      // up arrow
+      if (this.startHeight > 0) this.startHeight -= 1
+    }
+    else if (e.keyCode == '40') {
+      // down arrow
+      if (this.startHeight < this.gameHeight - this.height) this.startHeight += 1
+    }
+    else if (e.keyCode == '37') {
+      // left arrow
+      if (this.startWidth > 0) this.startWidth -= 1
+      
+    }
+    else if (e.keyCode == '39') {
+      // right arrow
+      if (this.startWidth < this.gameWidth - this.width) this.startWidth += 1
+    }
+    e.preventDefault()
+    this.initMap()
   }
 
   initMap() {
@@ -11,17 +36,17 @@ class GameUI {
     const table = document.getElementById('grid').getElementsByTagName('tbody')[0]
     table.innerHTML = ''
 
-    const gameHeight = this.gameControl.gameEngine.height
-    const gameWidth = this.gameControl.gameEngine.width
-    this.width = Math.min(Math.floor(window.innerWidth / 13) - 4, gameWidth)
-    this.height = Math.min(Math.floor(window.innerHeight / 13) - 20, gameHeight)
-    console.log(this.width) 
-    console.log(this.height)
-    for (let i=0; i < this.height; i+=1) {
-      const newRow = table.insertRow(i)
+    this.width = Math.min(Math.floor(window.innerWidth / 13) - 4, this.gameWidth)
+    this.height = Math.min(Math.floor(window.innerHeight / 13) - 20, this.gameHeight)
+    let x = 0
+    for (let i=this.startHeight; i < this.height + this.startHeight; i+=1) {
+      const newRow = table.insertRow(x)
+      x += 1
       newRow.id = i
-      for (let j=0; j < this.width; j+=1) {
-        const newCell = newRow.insertCell(j)
+      let y = 0
+      for (let j=this.startWidth; j < this.width + this.startWidth; j+=1) {
+        const newCell = newRow.insertCell(y)
+        y += 1
         newCell.id = `${i}-${j}`
         newCell.className = `cell ${this.gameControl.mapData[i][j] ? `alive-${this.gameControl.mapData[i][j]}` : 'dead'}`
         newCell.onclick = (e) => {
@@ -41,9 +66,9 @@ class GameUI {
       cell.className = `cell ${cellData ? `alive-${cellData}` : 'dead'}`
     }
 
-    for (let i=0; i < this.height; i+=1) {
-      for (let j=0; j < this.width; j+=1) {
-        updateCell(this.gameControl.mapData[i][j],i,j)
+    for (let i=this.startHeight; i < this.height + this.startHeight; i+=1) {
+      for (let j=this.startWidth; j < this.width + this.startWidth; j+=1) {
+        updateCell(this.gameControl.mapData[i][j], i, j)
       }  
     }
   }
