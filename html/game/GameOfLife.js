@@ -54,28 +54,57 @@ class GameOfLife {
     const species1Map = this.nextGenForSpecies(1)
     const species2Map = this.nextGenForSpecies(2)
     const mapDataFixed = this.mergeMaps(species1Map, species2Map)
-    //const mapDataArray = this.mergeMapsDynamic([species1Map, species2Map])
+    const mapDataArray = this.mergeMapsDynamic([species1Map, species2Map])
 
-    //assertMapsMatch(this.mapDataFixed)
+    console.log(this.assertMapsMatch(mapDataFixed, mapDataArray))
 
-    this.mapData = mapDataFixed
+    this.mapData = mapDataArray
+  }
+
+  assertMapsMatch(map1, map2) {
+    return JSON.stringify(map1) == JSON.stringify(map2)
   }
 
   mergeMapsDynamic(maps) {
+    // const neighbourCountArray = new Array(maps.length).fill(0)
+    // const cellArray = new Array(maps.length).fill(0)
+    // bottom way to initialize is better/fastest way apparently
+    let cellArray
+    (cellArray = []).length = maps.length; cellArray.fill(0);
+    let neighbourCountArray
+    (neighbourCountArray = []).length = maps.length; neighbourCountArray.fill(0);
+
+    const toFindDuplicates = (arr) => {
+      return arr.filter((item, index) => arr.indexOf(item) !== index)
+    }
+
     const nextMap = this.createMapShell()
     for (let i = 0; i < this.height; i += 1) {
       for (let j = 0; j < this.width; j += 1) {
-        //if all dead - no action
+        maps.forEach((map, index) => {
+          neighbourCountArray[index] = map.countFriendlyNeighbours(i, j)
+          cellArray[index] = map.getCell(i, j)
+        })
         
+        // if all dead - no action
+        const maxNeighbours = Math.max(...neighbourCountArray)
+        const maxIndex = neighbourCountArray.indexOf(maxNeighbours)
+        const duplicates = toFindDuplicates(neighbourCountArray)
+        
+        const numOfSpeciesOccupyCell = cellArray.reduce((sum, value) => {
+          return sum + (value ? 1 : 0) 
+        }, 0)
+
         //if 1 alive - he wins
-
-        //if > 1 alive{
-          //if only one has max friendlies - he wins
-          //if > 1 has max friendlies - tie, dead cell
-
-        //}
+        if (numOfSpeciesOccupyCell == 1) nextMap[i][j] = Math.max(...cellArray)
+        else if (numOfSpeciesOccupyCell > 1) {
+          // if only one has max friendlies - he wins
+          if (duplicates.length == 0) nextMap[i][j] = cellArray[maxIndex]
+          // else tied game
+        }
       }
     }
+    return nextMap
   }
 
   mergeMaps(map1, map2) {
