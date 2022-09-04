@@ -21,6 +21,7 @@ class GameUI {
         const newValue = this.gameControl.mapData[i][j] ? 0 : speciesId
         this.gameControl.mapData[i][j] = newValue
         newCell.className = `cell ${this.gameControl.mapData[i][j] ? `alive-${newValue}` : 'dead'}`
+        this.removeGameOverUI()
       }
     }
 
