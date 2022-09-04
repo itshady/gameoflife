@@ -1,0 +1,18 @@
+* {
+  margin: 0;
+  gap: 0;
+}
+
+.cell {
+  width:10px;
+  height:10px;
+  cursor: pointer;
+}
+
+.alive{
+  background-color: green;
+}
+
+.dead {
+  background-color: red;
+}

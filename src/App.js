@@ -17,7 +17,6 @@ const MAXINTERVAL = 5000
 
 function App() {
   // eslint-disable-next-line no-console
-  console.log('x')
   const onGameLoop = () => {
     setMap(game.mapData)
     setGenerationCount(game.generationCount)
