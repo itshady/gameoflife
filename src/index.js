@@ -5,5 +5,8 @@ import App from './App'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <App />,
+  <div>
+    <a href={process.env.PUBLIC_URL + "/html"} >Html version of Game</a>
+    <App />
+  </div>
 )
