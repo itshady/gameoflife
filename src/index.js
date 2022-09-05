@@ -6,7 +6,7 @@ import App from './App'
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <div>
-    <a href={process.env.PUBLIC_URL + "/html"} >Html version of Game</a>
+    <a href={process.env.PUBLIC_URL + "/html"} >(MORE RECENT AND WAY BETTER) Html version of Game</a>
     <App />
   </div>
 )
