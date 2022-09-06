@@ -15,12 +15,8 @@ class GameUI {
       const newCell = newRow.insertCell(j)
       newCell.id = `${i}-${j}`
       newCell.className = `cell ${cellData ? `alive-${cellData}` : 'dead'}`
-      newCell.onclick = (e) => {
-        let speciesId = e.shiftKey ? 2 : 1
-
-        const newValue = this.gameControl.mapData[i][j] ? 0 : speciesId
-        this.gameControl.mapData[i][j] = newValue
-        newCell.className = `cell ${this.gameControl.mapData[i][j] ? `alive-${newValue}` : 'dead'}`
+      newCell.onclick = () => {
+        this.onClick(i, j)
         this.removeGameOverUI()
       }
     }
@@ -53,6 +49,14 @@ class GameUI {
     this.gameControl.mapData.forEach((rowData, i) => {
       updateRow(rowData, i)
     })
+  }
+
+  onClick(i, j) {
+    const speciesId = document.getElementById('species').value
+
+    const newValue = this.gameControl.mapData[i][j] == speciesId ? 0 : speciesId
+    this.gameControl.mapData[i][j] = newValue
+    document.getElementById(`${i}-${j}`).className = `cell ${this.gameControl.mapData[i][j] ? `alive-${newValue}` : 'dead'}`
   }
 
   onGameOver(winningSpeciesId) {
