@@ -33,7 +33,9 @@ class HtmlApp {
   setInitialGameMap() {
     const map = Array.from(Array(30), _ => Array(80).fill(0))
     map[3][3] = map[2][3] = map[3][2] = map[2][1] = map[1][3] = 1
-    map[10][10] = map[11][11] = map[8][11] = map[9][8] = map[8][10] = map[9][10] = 2
+    map[3][3+7] = map[2][3+7] = map[3][2+7] = map[2][1+7] = map[1][3+7] = 2
+    map[3][3+7*2] = map[2][3+7*2] = map[3][2+7*2] = map[2][1+7*2] = map[1][3+7*2] = 3
+    map[3][3+7*3] = map[2][3+7*3] = map[3][2+7*3] = map[2][1+7*3] = map[1][3+7*3] = 4
 
     map[20][20] = map[21][21] = map[20][21] = map[21][20] = 2
     return map
