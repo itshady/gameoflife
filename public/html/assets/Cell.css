@@ -19,6 +19,8 @@
   --cell-dead: #7e7e7e;
   --cell-alive-1: #ffff00;
   --cell-alive-2: green;
+  --cell-alive-3: blue;
+  --cell-alive-4: red;
 }
 
 html {
@@ -62,6 +64,14 @@ body {
 
 .alive-2 {
   background-color: var(--cell-alive-2);
+}
+
+.alive-3 {
+  background-color: var(--cell-alive-3);
+}
+
+.alive-4 {
+  background-color: var(--cell-alive-4);
 }
 
 .dead {

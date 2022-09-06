@@ -52,7 +52,7 @@ class GameUI {
   }
 
   onClick(i, j) {
-    const speciesId = document.getElementById('species').value
+    const speciesId = parseInt(document.getElementById('species').value)
 
     const newValue = this.gameControl.mapData[i][j] == speciesId ? 0 : speciesId
     this.gameControl.mapData[i][j] = newValue
