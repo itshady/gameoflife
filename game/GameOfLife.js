@@ -2,9 +2,10 @@ import Rules from './rules/Rules.js'
 import Map from './map.js'
 
 class GameOfLife {
-  constructor(map) {
+  constructor(map, speciesCount) {
     this.width = map[0].length
     this.height = map.length
+    this.speciesCount = speciesCount
     this.history = []
     this.currentGenMap = new Map(map, 0)
   }
@@ -21,26 +22,23 @@ class GameOfLife {
     const lastGen = this.history[this.history.length - 1]
     const twoGensAgo = this.history[this.history.length - 2]
     const threeGensAgo = this.history[this.history.length - 3]
+
     // if last gen == current, we done
     // else if this gen == 2 ago and last gen == 3 ago, then we flickering... done.
     if (JSON.stringify(lastGen) == JSON.stringify(this.mapData) || 
     (JSON.stringify(twoGensAgo) == JSON.stringify(this.mapData) && JSON.stringify(threeGensAgo) == JSON.stringify(lastGen))) {
 
-      const toFindDuplicates = (arr) => {
-        return arr.filter((item, index) => arr.indexOf(item) !== index)
-      }
-
       const arr = this.countLivingCells()
       const max = Math.max(...arr);
-      const index = arr.indexOf(max);
-      const maxDuplicate = Math.max(...toFindDuplicates(arr))
+      const maxIndex = arr.indexOf(max);
+      const maxDuplicate = Math.max(...this.findDuplicates(arr))
       if (maxDuplicate == max) return -1
-      return index
+      return maxIndex
     }
   }
 
   countLivingCells() {
-    const arr = [0,0,0,0,0,0]
+    const arr = new Array(this.speciesCount).fill(0)
     this.currentGenMap.data.forEach((rowData, i) => {
       rowData.forEach((cellData, j) => {
         arr[cellData] += cellData ? 1 : 0 
@@ -51,18 +49,12 @@ class GameOfLife {
 
   nextGeneration() {
     this.history.push(this.mapData)
-    const species1Map = this.nextGenForSpecies(1)
-    const species2Map = this.nextGenForSpecies(2)
-    const mapDataFixed = this.mergeMaps(species1Map, species2Map)
-    const mapDataArray = this.mergeMapsDynamic([species1Map, species2Map])
+    const speciesMaps = []
+    for (let i=1; i <= this.speciesCount; i++) {
+      speciesMaps.push(this.nextGenForSpecies(i))
+    }
 
-    console.log(this.assertMapsMatch(mapDataFixed, mapDataArray))
-
-    this.mapData = mapDataArray
-  }
-
-  assertMapsMatch(map1, map2) {
-    return JSON.stringify(map1) == JSON.stringify(map2)
+    this.mapData = this.mergeMapsDynamic(speciesMaps)
   }
 
   mergeMapsDynamic(maps) {
@@ -73,10 +65,6 @@ class GameOfLife {
     (cellArray = []).length = maps.length; cellArray.fill(0);
     let neighbourCountArray
     (neighbourCountArray = []).length = maps.length; neighbourCountArray.fill(0);
-
-    const toFindDuplicates = (arr) => {
-      return arr.filter((item, index) => arr.indexOf(item) !== index)
-    }
 
     const nextMap = this.createMapShell()
     for (let i = 0; i < this.height; i += 1) {
@@ -89,7 +77,7 @@ class GameOfLife {
         // if all dead - no action
         const maxNeighbours = Math.max(...neighbourCountArray)
         const maxIndex = neighbourCountArray.indexOf(maxNeighbours)
-        const duplicates = toFindDuplicates(neighbourCountArray)
+        const duplicates = this.findDuplicates(neighbourCountArray)
         
         const numOfSpeciesOccupyCell = cellArray.reduce((sum, value) => {
           return sum + (value ? 1 : 0) 
@@ -107,30 +95,8 @@ class GameOfLife {
     return nextMap
   }
 
-  mergeMaps(map1, map2) {
-    const nextMap = this.createMapShell()
-    for (let i = 0; i < this.height; i += 1) {
-      for (let j = 0; j < this.width; j += 1) {
-        if(map2.isAlive(i, j) && map1.isDead(i, j)){ //no conflict
-          nextMap[i][j] = map2.getCell(i, j)
-        }
-        else if(map1.isAlive(i, j) && map2.isDead(i, j)){ //no conflict
-          nextMap[i][j] = map1.getCell(i, j)
-        }
-        else if(map2.isAlive(i, j) && map1.isAlive(i, j)){ //conflict
-          const map1FriendlyCount = map1.countFriendlyNeighbours(i, j) 
-          const map2FriendlyCount = map2.countFriendlyNeighbours(i, j) 
-          if(map1FriendlyCount > map2FriendlyCount){ //1 wins
-            nextMap[i][j] = map1.getCell(i, j)
-          }
-          else if(map1FriendlyCount < map2FriendlyCount){ //2 wins
-            nextMap[i][j] = map2.getCell(i, j)
-          }
-          // else tied or both dead
-        }
-      }
-    }
-    return nextMap
+  findDuplicates(arr) {
+    return arr.filter((item, index) => arr.indexOf(item) !== index)
   }
 
   nextGenForSpecies(speciesId) {

@@ -1,8 +1,9 @@
 import GameOfLife from './GameOfLife.js'
 
 class GameControl {
-  constructor(initMap, onGameStart, onGameStop, onGameNext, onBackGeneration, onGameOver) {
+  constructor(initMap, speciesCount, onGameStart, onGameStop, onGameNext, onBackGeneration, onGameOver) {
     this.intervalId = 0
+    this.speciesCount = speciesCount
     this.onGameStart = onGameStart
     this.onGameStop = onGameStop
     this.onGameNext = onGameNext
@@ -57,7 +58,7 @@ class GameControl {
   }
 
   reset(map) {
-    if (this.validate(map)) this.gameEngine = new GameOfLife(map)
+    if (this.validate(map)) this.gameEngine = new GameOfLife(map, this.speciesCount)
     else throw 'Map Data invalid. Must be rectangular.'
     this.generationCount = 0
   }
