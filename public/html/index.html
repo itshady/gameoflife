@@ -36,7 +36,13 @@
     </div>
     </div>
     <div class="d-flex flex-column justify-content-end align-items-center mb-3 h-100">
-      <div class="d-flex flex-row flex-wrap justify-content-center mt-3 w-100">
+      <div class="d-flex flex-row justify-content-center align-items-center mt-3">
+        <select class="form-select" id="species" aria-label="Default select example">
+          <option value="1">Yellow</option>
+          <option value="2">Green</option>
+        </select>
+      </div>
+      <div class="d-flex flex-row flex-wrap justify-content-center w-100 my-2">
         <button id="btn-start" type="button" class="btn btn-main btn-success text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.gameUI.onStart()">Start</button>
         <button id="btn-stop" type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.gameUI.onStop()">Stop</button>
         <button id="btn-back" type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.gameUI.onBack()">« Back</button>
@@ -45,7 +51,7 @@
         <button id="btn-clear" type="button" class="btn btn-main btn-danger text-uppercase rounded-pill text-nowrap m-2" onclick="window.app.gameUI.onClear()">Clear</button>
       </div>
 
-      <div class="d-flex flex-row flex-wrap justify-content-center align-items-center mt-3 w-100">
+      <div class="d-flex flex-row flex-wrap justify-content-center align-items-center w-100">
         <!-- Button trigger Lexicon -->
         <button type="button" class="btn btn-main btn-primary text-uppercase rounded-pill text-nowrap m-2" data-bs-toggle="modal" data-bs-target="#lexicon-modal">
           Lexicon
