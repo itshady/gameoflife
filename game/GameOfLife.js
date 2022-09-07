@@ -1,5 +1,5 @@
 import Rules from './rules/Rules.js'
-import Map from './map.js'
+import Map from './components/map.js'
 
 class GameOfLife {
   constructor(map, speciesCount) {
