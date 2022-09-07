@@ -36,7 +36,7 @@ class GameOfLife {
     const maxLivingCells = Math.max(...arrayOfLivingCells)
     const maxIndex = arrayOfLivingCells.indexOf(maxLivingCells)
     const instanceCount = this.countInstances(maxLivingCells, arrayOfLivingCells)
-    if (instanceCount != 1) return -1
+    if (this.isTied(instanceCount)) return -1
     return maxIndex
   }
 
@@ -86,6 +86,10 @@ class GameOfLife {
     const setCellDead = (x, y) => {
       nextMap[x][y] = 0
     }
+
+    const setCellWinner = (x, y, speciesId) => {
+      nextMap[x][y] = speciesId
+    }
     
     for (let i = 0; i < this.height; i += 1) {
       for (let j = 0; j < this.width; j += 1) {
@@ -93,18 +97,18 @@ class GameOfLife {
           neighbourCountArray[index] = map.countFriendlyNeighbours(i, j)
           cellArray[index] = map.getCell(i, j)
         })
-        
+
         const maxNeighbours = Math.max(...neighbourCountArray)
         const maxIndex = neighbourCountArray.indexOf(maxNeighbours)
         const instanceCount = this.countInstances(maxNeighbours, neighbourCountArray)
 
         if (isOccupied(cellArray)) {
           if (isContested(cellArray)){
-            if (instanceCount == 1) nextMap[i][j] = cellArray[maxIndex]
-            else setCellDead(i, j)
+            if (this.isTied(instanceCount)) setCellDead(i, j)
+            else setCellWinner(i, j, cellArray[maxIndex])
           }
           else {
-            nextMap[i][j] = getOnlyOccupant(cellArray)
+            setCellWinner(i, j, getOnlyOccupant(cellArray))
           }
         } else {
           setCellDead(i ,j)
@@ -112,6 +116,10 @@ class GameOfLife {
       }
     }
     return nextMap
+  }
+
+  isTied(instanceCount) {
+    return instanceCount != 1
   }
 
   countInstances(value, array){
