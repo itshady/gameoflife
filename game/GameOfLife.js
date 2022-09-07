@@ -41,7 +41,7 @@ class GameOfLife {
   }
 
   countLivingCells() {
-    const arr = new Array(this.speciesCount).fill(0)
+    const arr = new Array(this.speciesCount+1).fill(0)
     this.currentGenMap.data.forEach((rowData, i) => {
       rowData.forEach((cellData, j) => {
         arr[cellData] += cellData ? 1 : 0 
