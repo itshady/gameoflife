@@ -29,6 +29,9 @@ class Rules {
     return 0
   }
 
+  // Each species grows as per singleplayer rules
+  // When conflicting, the one with the most neighbours wins, else both die
+
   multiplayer(maps, i, j) {
     let cellArray
     (cellArray = []).length = maps.length; cellArray.fill(0);
