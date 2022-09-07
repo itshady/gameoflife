@@ -27,14 +27,17 @@ class GameOfLife {
     // else if this gen == 2 ago and last gen == 3 ago, then we flickering... done.
     if (JSON.stringify(lastGen) == JSON.stringify(this.mapData) || 
     (JSON.stringify(twoGensAgo) == JSON.stringify(this.mapData) && JSON.stringify(threeGensAgo) == JSON.stringify(lastGen))) {
-
-      const arr = this.countLivingCells()
-      const max = Math.max(...arr);
-      const maxIndex = arr.indexOf(max);
-      const maxDuplicate = Math.max(...this.findDuplicates(arr))
-      if (maxDuplicate == max) return -1
-      return maxIndex
+      return this.findWinner()
     }
+  }
+
+  findWinner() {
+    const arrayOfLivingCells = this.countLivingCells()
+    const maxLivingCells = Math.max(...arrayOfLivingCells)
+    const maxIndex = arrayOfLivingCells.indexOf(maxLivingCells)
+    const instanceCount = this.countInstances(maxLivingCells, arrayOfLivingCells)
+    if (instanceCount != 1) return -1
+    return maxIndex
   }
 
   countLivingCells() {
@@ -67,6 +70,23 @@ class GameOfLife {
     (neighbourCountArray = []).length = maps.length; neighbourCountArray.fill(0);
 
     const nextMap = this.createMapShell()
+    
+    const getOnlyOccupant = (cellArray) => {
+      return Math.max(...cellArray)
+    }
+
+    const isContested = (cellArray) => {
+      return cellArray.reduce((sum, value) => sum + (value ? 1 : 0), 0) > 1
+    }
+
+    const isOccupied = (cellArray) =>  {
+      return getOnlyOccupant(cellArray) != 0
+    }
+
+    const setCellDead = (x, y) => {
+      nextMap[x][y] = 0
+    }
+    
     for (let i = 0; i < this.height; i += 1) {
       for (let j = 0; j < this.width; j += 1) {
         maps.forEach((map, index) => {
@@ -74,29 +94,28 @@ class GameOfLife {
           cellArray[index] = map.getCell(i, j)
         })
         
-        // if all dead - no action
         const maxNeighbours = Math.max(...neighbourCountArray)
         const maxIndex = neighbourCountArray.indexOf(maxNeighbours)
-        const duplicates = this.findDuplicates(neighbourCountArray)
-        
-        const numOfSpeciesOccupyCell = cellArray.reduce((sum, value) => {
-          return sum + (value ? 1 : 0) 
-        }, 0)
+        const instanceCount = this.countInstances(maxNeighbours, neighbourCountArray)
 
-        //if 1 alive - he wins
-        if (numOfSpeciesOccupyCell == 1) nextMap[i][j] = Math.max(...cellArray)
-        else if (numOfSpeciesOccupyCell > 1) {
-          // if only one has max friendlies - he wins
-          if (duplicates.length == 0) nextMap[i][j] = cellArray[maxIndex]
-          // else tied game
+        if (isOccupied(cellArray)) {
+          if (isContested(cellArray)){
+            if (instanceCount == 1) nextMap[i][j] = cellArray[maxIndex]
+            else setCellDead(i, j)
+          }
+          else {
+            nextMap[i][j] = getOnlyOccupant(cellArray)
+          }
+        } else {
+          setCellDead(i ,j)
         }
       }
     }
     return nextMap
   }
 
-  findDuplicates(arr) {
-    return arr.filter((item, index) => arr.indexOf(item) !== index)
+  countInstances(value, array){
+    return array.filter(x => x == value).length
   }
 
   nextGenForSpecies(speciesId) {
