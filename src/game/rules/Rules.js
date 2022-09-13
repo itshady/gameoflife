@@ -1,7 +1,7 @@
-import UnderPopulation from './UnderPopulation.js'
-import Survive from './Survive.js'
-import OverPopulation from './OverPopulation.js'
-import Reproduction from './Reproduction.js'
+import UnderPopulation from './UnderPopulation'
+import Survive from './Survive'
+import OverPopulation from './OverPopulation'
+import Reproduction from './Reproduction'
 
 /* eslint-disable no-underscore-dangle */
 class Rules {
@@ -19,9 +19,5 @@ class Rules {
     return newData
   }
 }
-
-//Rules for conflict
-// whichever species has the most species neighbours wins
-// if ties, cell is dead
 
 export default Rules

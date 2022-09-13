@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom/extend-expect'
-import GameOfLife from '../../game/GameOfLife'
+import GameOfLife from '../../../html/game/GameOfLife'
 
 it('upon creation, initial state should match size and all dead', () => {
   const expectedWidth = 2

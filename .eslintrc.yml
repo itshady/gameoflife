@@ -1,7 +1,7 @@
 env:
-  browser: true
-  es2021: true
-  jest: true
+  browser: false
+  es2021: false
+  jest: false
 extends:
   - plugin:react/recommended
   - airbnb
@@ -21,4 +21,5 @@ rules: {
   "react/no-array-index-key": off,
   "max-len": off,
   "no-console": off,
+  "linebreak-style": off,
 }
